@@ -18,7 +18,6 @@ class Event extends Model
         'end_time' => 'datetime',
         'canceled' => 'boolean',
         'soldout' => 'boolean',
-        'cover' => 'array',
         'meta' => 'array',
         'source' => 'array',
         'last_pulled_at' => 'datetime',
@@ -38,6 +37,11 @@ class Event extends Model
     public function venue()
     {
         return $this->belongsTo(Venue::class);
+    }
+
+    public function getCoverUrlAttribute()
+    {
+        return asset('/storage/covers'.$this->cover);
     }
 
     public function getDescriptionHtmlAttribute()
@@ -61,6 +65,6 @@ class Event extends Model
             ->startDate($this->start_time)
             ->endDate($this->end_time)
             ->description($this->description)
-            ->image($this->cover['url']);
+            ->image($this->cover_url);
     }
 }

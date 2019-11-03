@@ -24,7 +24,7 @@
         </div>
 
         <div class="mt-12 md:w-1/3 md:pl-8 md:mt-0">
-            <img class="w-full rounded-bl-lg object-center object-cover" src="{{ $event->cover['url'] }}" alt="{{ $event->name }}">
+            <img class="w-full rounded-bl-lg object-center object-cover" src="{{ $event->cover_url }}" alt="{{ $event->name }}">
         </div>
     </div>
 @endsection

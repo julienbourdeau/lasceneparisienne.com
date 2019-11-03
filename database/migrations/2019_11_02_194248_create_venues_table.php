@@ -19,7 +19,6 @@ class CreateVenuesTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->string('slug');
-            $table->json('cover')->nullable();
 
             $table->string('city')->nullable();
             $table->string('country')->nullable();

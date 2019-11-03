@@ -10,6 +10,7 @@ use App\Venue;
 use Facebook\GraphNodes\GraphEvent;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\File;
 
 class ImportFacebookEventCommand extends Command
 {
@@ -80,6 +81,45 @@ class ImportFacebookEventCommand extends Command
             }
 
             $event->save();
+
+            $ext = File::extension(parse_url($event->meta['cover'])['path']);
+            $cover = "/{$event->start_time->year}/{$event->slug}.$ext";
+            $finalPath = storage_path('app/public/covers'.$cover);
+            if (!File::isDirectory($dir = dirname($finalPath))) {
+                File::makeDirectory($dir, 0755, true);
+            }
+
+            if (! $this->shouldUpdateCover($event, $finalPath)) {
+                return;
+            }
+
+            try {
+                File::put($tmpPath = storage_path($event->uuid), file_get_contents($event->meta['cover']));
+            } catch (\Exception $e) {
+                $this->warn($e->getMessage());
+                return;
+            }
+
+            File::move($tmpPath, $finalPath);
+
+            $event->update(['cover' => $cover]);
         });
+    }
+
+    public function shouldUpdateCover($event, $file)
+    {
+        if (! File::exists($file)) {
+            return true;
+        }
+
+        if (File::lastModified($file) > now()->subDays(2)->timestamp) {
+            return false;
+        }
+
+        if ($event->start_time->timestamp < now()->addDays(14)) {
+            return true;
+        }
+
+        return false;
     }
 }

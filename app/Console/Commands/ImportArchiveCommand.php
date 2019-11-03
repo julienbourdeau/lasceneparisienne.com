@@ -38,14 +38,14 @@ class ImportArchiveCommand extends Command
                 continue;
             }
 
-            $attr = array_only($oldEvent, ['name', 'slug', 'start_time', 'end_time', 'description', 'cover', 'ticket_url', 'meta', 'id_facebook', 'created_at']);
+            $attr = array_only($oldEvent, ['name', 'slug', 'start_time', 'end_time', 'description', 'ticket_url', 'meta', 'id_facebook', 'created_at']);
             $event = new Event($attr);
 
             try {
                 $venue = Venue::where('id_facebook', $oldEvent['venue']['id_facebook'])->firstOrFail();
             } catch (ModelNotFoundException $e) {
                 $venue = Venue::create(array_only($oldEvent['venue'], [
-                        'name', 'description', 'slug', 'cover',
+                        'name', 'description', 'slug',
                         'city', 'country', 'country_code',
                         'address_formatted', 'phone_formatted', 'email', 'opening_hours',
                         'lat', 'lng',

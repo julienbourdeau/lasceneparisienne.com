@@ -26,10 +26,9 @@ class CreateEventsTable extends Migration
             $table->timestamp('end_time')->nullable();
 
             $table->text('description')->nullable();
-            $table->json('cover')->nullable();
+            $table->string('cover')->nullable();
             $table->boolean('canceled')->default(0);
             $table->boolean('soldout')->default(0);
-
             $table->text('ticket_url')->nullable();
 
             $table->json('meta')->nullable();

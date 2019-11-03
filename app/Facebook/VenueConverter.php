@@ -13,7 +13,7 @@ class VenueConverter
         return array_merge([
             'name' => $node->getName(),
             'slug' => $this->getSlug($node),
-            'cover' => $node->getCover(),
+            'meta' => ['cover' => optional($node->getCover())->getSource()],
             'id_facebook' => $node->getId(),
         ], $this->getLocationFields($node->getLocation()));
     }

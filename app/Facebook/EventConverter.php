@@ -24,7 +24,6 @@ class EventConverter
             'name' => $node->getName(),
             'slug' => $this->getSlug($node),
             'description' => $node->getDescription(),
-            'cover' => ['url' => optional($node->getCover())->getSource()],
             'meta' => $this->getMeta($node),
             'ticket_url' => $node->getTicketUri(),
             'start_time' => $start,
@@ -34,21 +33,22 @@ class EventConverter
         ];
     }
 
-    private function getMeta(GraphEvent $fb): array
+    private function getMeta(GraphEvent $node): array
     {
         return [
-            'attending' => $fb->getAttendingCount(),
-            'invited' => $fb->getInvitedCount(),
+            'attending' => $node->getAttendingCount(),
+            'invited' => $node->getInvitedCount(),
+            'cover' => optional($node->getCover())->getSource(),
         ];
     }
 
-    private function getSlug(GraphEvent $fb): string
+    private function getSlug(GraphEvent $node): string
     {
         return rtrim(
             str_slug(
-                $fb->getName())
+                $node->getName())
             .'-'
-            .str_slug(optional($fb->getPlace())->getName())
+            .str_slug(optional($node->getPlace())->getName())
             , '-');
     }
 }

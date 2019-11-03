@@ -15,7 +15,6 @@ class Venue extends Model
     protected static $unguarded = true;
 
     protected $casts = [
-        'cover' => 'array',
         'meta' => 'array',
         'source' => 'array',
         'opening_hours' => 'array',
