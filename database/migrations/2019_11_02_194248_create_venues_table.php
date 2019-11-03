@@ -35,8 +35,11 @@ class CreateVenuesTable extends Migration
 
             $table->json('meta')->nullable();
 
-            $table->string('id_facebook')->nullable();
             $table->uuid('uuid');
+
+            $table->string('id_facebook')->nullable();
+            $table->json('source')->nullable();
+
 
             $table->softDeletes();
             $table->timestamps();

@@ -8,16 +8,14 @@ use Facebook\GraphNodes\GraphPage;
 
 class VenueConverter
 {
-    public function convert(GraphPage $node): Venue
+    public function convert(GraphPage $node): array
     {
-        $attr = array_merge([
+        return array_merge([
             'name' => $node->getName(),
             'slug' => $this->getSlug($node),
             'cover' => $node->getCover(),
             'id_facebook' => $node->getId(),
         ], $this->getLocationFields($node->getLocation()));
-
-        return new Venue($attr);
     }
 
     private function getLocationFields(?GraphLocation $node): array

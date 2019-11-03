@@ -34,8 +34,10 @@ class CreateEventsTable extends Migration
 
             $table->json('meta')->nullable();
 
-            $table->string('id_facebook', 64)->nullable();
             $table->uuid('uuid');
+
+            $table->string('id_facebook', 64)->nullable();
+            $table->json('source')->nullable();
 
             $table->timestamp('fb_updated_at')->nullable();
             $table->timestamp('last_pulled_at')->nullable();

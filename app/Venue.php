@@ -16,6 +16,7 @@ class Venue extends Model
     protected $casts = [
         'cover' => 'array',
         'meta' => 'array',
+        'source' => 'array',
         'opening_hours' => 'array',
         'lat' => 'float',
         'lng' => 'float',

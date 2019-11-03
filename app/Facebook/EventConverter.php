@@ -7,7 +7,7 @@ use Facebook\GraphNodes\GraphEvent;
 
 class EventConverter
 {
-    public function convert(GraphEvent $node, $tz = 'Europe/Paris'): Event
+    public function convert(GraphEvent $node, $tz = 'Europe/Paris'): array
     {
         $start = tap($node->getStartTime())
             ->setTimezone(new \DateTimeZone($tz));
@@ -21,7 +21,7 @@ class EventConverter
         }
         $lastUpdated = tap($node->getUpdatedTime())->setTimezone(new \DateTimeZone($tz));
 
-        $attr = [
+        return [
             'name' => $node->getName(),
             'slug' => $this->getSlug($node),
             'description' => $node->getDescription(),
@@ -33,8 +33,6 @@ class EventConverter
             'id_facebook' => $node->getId(),
             'fb_updated_at' => $lastUpdated,
         ];
-
-        return new Event($attr);
     }
 
     private function getMeta(GraphEvent $fb): array

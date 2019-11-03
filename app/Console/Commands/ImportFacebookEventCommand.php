@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Converters\EventConverter;
+use App\Event;
 use App\Facebook\Events;
 use App\Facebook\VenueConverter;
 use App\Venue;
@@ -51,26 +52,30 @@ class ImportFacebookEventCommand extends Command
  */
     public function handle(EventConverter $ec, VenueConverter $vc)
     {
-        $facebookIds = \App\Event::get(['id_facebook'])->pluck('id_facebook')->toArray();
+        $facebookIds = Event::get(['id_facebook'])->pluck('id_facebook')->toArray();
+
         $this->fb->each(function(GraphEvent $node) use ($ec, $vc, $facebookIds) {
             if (in_array($node->getId(), $facebookIds)) {
                 $this->line("Skipping {$node->getName()}");
                 return;
             }
 
-            $event = $ec->convert($node);
+            $eventAttr = $ec->convert($node);
 
             try {
                 $venue = Venue::where('id_facebook', $node->getPlace()->getId())->firstOrFail();
             } catch (ModelNotFoundException $e) {
-                $venue = $vc->convert($node->getPlace());
+                $venueAttr = $vc->convert($node->getPlace());
+                $venue = new Venue($venueAttr);
+                $venue->source = $eventAttr;
                 $venue->save();
             }
 
-            $event->fill([
+            $event = new Event(array_merge($eventAttr, [
                 'venue_id' => $venue->id,
                 'last_pulled_at' => now(),
-            ]);
+            ]));
+            $event->source = $eventAttr;
 
             $event->save();
             $this->info("Saved {$event->name}");

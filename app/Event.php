@@ -19,6 +19,7 @@ class Event extends Model
         'soldout' => 'boolean',
         'cover' => 'array',
         'meta' => 'array',
+        'source' => 'array',
         'last_pulled_at' => 'datetime',
         'updated_at' => 'datetime',
         'created_at' => 'datetime',
