@@ -18,7 +18,7 @@ class ImportFacebookEventCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'facebook:import';
+    protected $signature = 'import:facebook';
 
     /**
      * The console command description.
