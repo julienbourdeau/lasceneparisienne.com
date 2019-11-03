@@ -15,11 +15,18 @@ class EventController extends Controller
         return view('events.show', [
             'event' => $event,
             'breadcrumb' => $this->getBreadcrumb($event),
+            'schema' => [
+                'event' => $event->toSchema(),
+            ],
+
         ]);
     }
 
-    public function getBreadcrumb(Event $event)
+    private function getBreadcrumb(Event $event)
     {
+        $eventUrl = canonical($event);
+        $venueUrl = canonical($event->venue);
+
         return Schema::breadcrumbList()->itemListElement([
             Schema::listItem()->item(
                 Schema::thing()
@@ -30,14 +37,14 @@ class EventController extends Controller
             )->position(1),
             Schema::listItem()->item(
                 Schema::thing()
-                    ->setProperty('id', $venueUrl = route('venue', $event->venue->slug))
+                    ->setProperty('id', $venueUrl)
                     ->name($event->venue->name)
                     ->url($venueUrl)
                     ->identifier($venueUrl)
             )->position(2),
             Schema::listItem()->item(
                 Schema::thing()
-                    ->setProperty('id', $eventUrl = route('event', $event->slug))
+                    ->setProperty('id', $eventUrl)
                     ->name($event->name)
                     ->url($eventUrl)
                     ->identifier($eventUrl)

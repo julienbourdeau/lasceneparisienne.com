@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
+use Spatie\SchemaOrg\Schema;
 
 class Event extends Model
 {
@@ -46,5 +47,20 @@ class Event extends Model
         $html = preg_replace($url, '<a href="http$2://$4" rel="nofollow">$0</a>', $this->description);
 
         return nl2br($html);
+    }
+
+    public function toSchema()
+    {
+        $canonical = canonical($this);
+
+        return Schema::musicEvent()
+            ->identifier($canonical)
+            ->url($canonical)
+            ->name($this->name)
+            ->location($this->venue->toSchema())
+            ->startDate($this->start_time)
+            ->endDate($this->end_time)
+            ->description($this->description)
+            ->image($this->cover['url']);
     }
 }

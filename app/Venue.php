@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Ramsey\Uuid\Uuid;
+use Spatie\SchemaOrg\Schema;
 
 class Venue extends Model
 {
@@ -48,5 +49,20 @@ class Venue extends Model
         return $this->events()
             ->where('start_time', '>', time())
             ->limit($limit);
+    }
+
+    public function toSchema()
+    {
+        $canonical = canonical($this);
+
+        Schema::place()
+            ->identifier($canonical)
+            ->url($canonical)
+            ->name($this->name)
+            ->address($this->address_formatted)
+            ->geo(Schema::geoCoordinates()
+                ->latitude($this->lat)
+                ->longitude($this->lng)
+            );
     }
 }

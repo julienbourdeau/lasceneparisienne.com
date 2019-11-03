@@ -4,6 +4,12 @@
 
 {{--<link rel="canonical" href="{{ $seo['canonical_url'] }}">--}}
 
-@isset($breadcrump)
+@isset($breadcrumb)
     {!! $breadcrumb->toScript() !!}
+@endisset
+
+@isset($schema)
+    @foreach($schema as $thing)
+        {!! $thing->toScript() !!}
+    @endforeach
 @endisset
