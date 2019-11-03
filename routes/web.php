@@ -9,8 +9,5 @@ Route::get('fb/callback', 'FacebookConnectController@callback')->name('fb.callba
 Route::get('/events', 'EventListController@index')->name('events');
 Route::get('/event/{slug}', 'EventController@show')->name('event');
 
-if (App::environment('local')) {
-    Route::get('/debug', function () {
-        return \App\Event::get(['id_facebook'])->pluck('id_facebook');
-    });
-}
+Route::get('/venues', 'VenueListController@index')->name('venues');
+Route::get('/venue/{slug}', 'VenueController@show')->name('venue');

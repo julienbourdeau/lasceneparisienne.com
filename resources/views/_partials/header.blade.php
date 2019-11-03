@@ -15,12 +15,12 @@
                 <a href="{{ route('events') }}" class="block mt-4 lg:inline-block lg:mt-0 hover:text-red-800 mr-4">
                     Concerts
                 </a>
-                <a href="#" class="block mt-4 lg:inline-block lg:mt-0 hover:text-red-800 mr-4">
+                <a href="{{ route('venues') }}" class="block mt-4 lg:inline-block lg:mt-0 hover:text-red-800 mr-4">
                     Salles
                 </a>
             </div>
             <div>
-                <a href="#" class="inline-block text-sm px-4 py-2 leading-none border border-black rounded hover:border-red-800 hover:text-red-800 mt-4 lg:mt-0">Contact us</a>
+                <a href="#" class="inline-block text-sm px-4 py-2 leading-none border border-black rounded hover:border-red-800 hover:text-red-800 mt-4 lg:mt-0">Contact</a>
             </div>
         </div>
     </nav>
