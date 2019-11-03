@@ -6,7 +6,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-    @include('_partials/seo.blade.php')
+    @include('_partials/seo')
 
     {{--<script src="{{ asset('app.js') }}" defer></script>--}}
 
@@ -15,6 +15,17 @@
 
 </head>
 <body>
+
+    @include('_partials.header')
+
+    <div class="container">
+
+        @yield('content')
+
+    </div>
+
+    @include('_partials.footer')
+
 
 </body>
 </html>

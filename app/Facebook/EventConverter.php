@@ -16,8 +16,7 @@ class EventConverter
             $end = clone $start;
             $end->add(\DateInterval::createFromDateString('4 hours'));
         } else {
-            $end = tap($node->getEndTime())
-                ->setTimezone(new \DateTimeZone($tz));
+            $end = $endTime->setTimezone(new \DateTimeZone($tz));
         }
         $lastUpdated = tap($node->getUpdatedTime())->setTimezone(new \DateTimeZone($tz));
 
