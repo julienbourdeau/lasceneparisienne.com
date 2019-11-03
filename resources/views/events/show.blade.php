@@ -9,7 +9,7 @@
 
             <h1 class="text-3xl font-bold mb-8 leading-none">{{ $event->name }}</h1>
 
-            <div class="my-6 md:my-12 p-4 bg-red-100 rounded-bl-lg shadow">
+            <div class="my-6 md:my-12 p-4 bg-yellow-100  hover:shadow">
                 <p class="font-semibold text-red-900">{{ $event->start_time->format('l d F Y') }}</p>
                 <p class="text-gray-800">{{ $event->start_time->format('H:i') }} - {{ $event->end_time->format('H:i') }}</p>
                 <br>
