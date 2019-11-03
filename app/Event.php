@@ -38,4 +38,13 @@ class Event extends Model
     {
         return $this->belongsTo(Venue::class);
     }
+
+    public function getDescriptionHtmlAttribute()
+    {
+        // Automatic linking
+        $url = '@(http(s)?)?(://)?(([a-zA-Z])([-\w]+\.)+([^\s\.]+[^\s]*)+[^,.\s])@';
+        $html = preg_replace($url, '<a href="http$2://$4" rel="nofollow">$0</a>', $this->description);
+
+        return nl2br($html);
+    }
 }

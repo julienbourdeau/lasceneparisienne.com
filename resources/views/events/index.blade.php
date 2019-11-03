@@ -25,7 +25,9 @@
                 </div>
             </div>
             <div>
-                <h4 class="font-semibold text-lg">{{ $event->name }}</h4>
+                <h4 class="font-semibold text-lg">
+                    <a class="hover:text-red-800" href="{{ route('event', $event->slug) }}">{{ $event->name }}</a>
+                </h4>
                 <p class="">{{ $event->venue->name }}</p>
                 <p class="text-gray-600">{{ $event->venue->address_formatted }}</p>
             </div>

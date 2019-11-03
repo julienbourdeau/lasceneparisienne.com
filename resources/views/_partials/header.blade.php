@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div>
-                <a href="#" class="inline-block text-sm px-4 py-2 leading-none border border-black rounded hover:border-transparent hover:text-red-800 mt-4 lg:mt-0">Contact us</a>
+                <a href="#" class="inline-block text-sm px-4 py-2 leading-none border border-black rounded hover:border-red-800 hover:text-red-800 mt-4 lg:mt-0">Contact us</a>
             </div>
         </div>
     </nav>
