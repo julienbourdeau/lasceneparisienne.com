@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'facebook' => [
+        'id' => env('FACEBOOK_APP_ID'),
+        'secret' => env('FACEBOOK_APP_SECRET'),
+    ],
+
     'mailgun' => [
         'domain' => env('MAILGUN_DOMAIN'),
         'secret' => env('MAILGUN_SECRET'),
