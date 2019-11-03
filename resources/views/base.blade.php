@@ -18,7 +18,7 @@
 
     @include('_partials.header')
 
-    <div class="container">
+    <div class="container p-4 md:px-0 lg:px-0">
 
         @yield('content')
 

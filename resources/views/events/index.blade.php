@@ -12,14 +12,17 @@
 
     @foreach($allEvents as $month => $events)
 
-    <h3 id="{{ str_slug($month) }}" class="text-sm font-bold uppercase my-6">{{ $month }}</h3>
+    <h3 id="{{ str_slug($month) }}" class="text-sm font-bold uppercase mt-10 mb-6">{{ $month }}</h3>
 
     <ol class="mt-2 mb-12">
         @foreach($events as $event)
         <li class="flex my-6">
-            <div class="bg-gray-100 rounded-lg border p-2 text-center w-24 mr-4">
-                <span class="font-bold">{{ $event->start_time->format('d M') }}</span> <br>
-                <span>{{ $event->start_time->format('H:m') }}</span>
+            <div>
+                <div class="bg-gray-100 rounded-lg border p-2 text-center w-12 md:w-24 mr-4">
+                    <span class="hidden md:block text-sm">{{ $event->start_time->format('D') }}</span>
+                    <span class="md:block font-bold">{{ $event->start_time->format('d M') }}</span>
+                    <span class="hidden md:block">{{ $event->start_time->format('H:m') }}</span>
+                </div>
             </div>
             <div>
                 <h4 class="font-semibold text-lg">{{ $event->name }}</h4>

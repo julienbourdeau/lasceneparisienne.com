@@ -1,6 +1,6 @@
 <div class="container lg:my-6">
 
-    <nav class="flex items-center justify-between flex-wrap p-6 md:px-0 lg:px-0">
+    <nav class="flex items-center justify-between flex-wrap p-4 md:px-0 lg:px-0">
         <div class="flex items-center flex-shrink-0 mr-6">
             <span class="font-semibold text-xl tracking-tight">La Scene Parisienne</span>
         </div>
