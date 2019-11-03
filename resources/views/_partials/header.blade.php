@@ -12,15 +12,15 @@
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
             <div class="text-sm lg:flex-grow">
-                <a href="{{ route('events') }}" class="block mt-4 lg:inline-block lg:mt-0 hover:text-red-800 mr-4">
+                <a href="{{ route('events') }}" class="block mt-4 lg:inline-block lg:mt-0 font-semibold hover:text-red-800 mr-5">
                     Concerts
                 </a>
-                <a href="{{ route('venues') }}" class="block mt-4 lg:inline-block lg:mt-0 hover:text-red-800 mr-4">
+                <a href="{{ route('venues') }}" class="block mt-4 lg:inline-block lg:mt-0 font-semibold hover:text-red-800 mr-5">
                     Salles
                 </a>
             </div>
             <div>
-                <a href="#" class="inline-block text-sm px-4 py-2 leading-none border border-black rounded hover:border-red-800 hover:text-red-800 mt-4 lg:mt-0">Contact</a>
+                <a href="mailto:julien@sigerr.org" class="inline-block text-sm px-4 py-2 leading-none border border-black rounded hover:border-red-800 hover:text-red-800 mt-4 lg:mt-0">Contact</a>
             </div>
         </div>
     </nav>

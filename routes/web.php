@@ -1,6 +1,7 @@
 <?php
 
-Route::get('/', 'HomeController')->name('home');
+//Route::get('/', 'HomeController')->name('home');
+Route::redirect('/', '/events')->name('home');
 
 Route::get('/events', 'EventListController@index')->name('events');
 Route::get('/event/{slug}', 'EventController@show')->name('event');
