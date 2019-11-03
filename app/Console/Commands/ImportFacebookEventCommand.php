@@ -52,33 +52,34 @@ class ImportFacebookEventCommand extends Command
  */
     public function handle(EventConverter $ec, VenueConverter $vc)
     {
-        $facebookIds = Event::get(['id_facebook'])->pluck('id_facebook')->toArray();
-
-        $this->fb->each(function(GraphEvent $node) use ($ec, $vc, $facebookIds) {
-            if (in_array($node->getId(), $facebookIds)) {
-                $this->line("Skipping {$node->getName()}");
-                return;
-            }
-
-            $eventAttr = $ec->convert($node);
+        $this->fb->each(function(GraphEvent $node) use ($ec, $vc) {
 
             try {
                 $venue = Venue::where('id_facebook', $node->getPlace()->getId())->firstOrFail();
             } catch (ModelNotFoundException $e) {
                 $venueAttr = $vc->convert($node->getPlace());
                 $venue = new Venue($venueAttr);
-                $venue->source = $eventAttr;
+                $venue->source = $venueAttr;
                 $venue->save();
             }
 
-            $event = new Event(array_merge($eventAttr, [
+            $eventAttr = $ec->convert($node);
+
+            $event = Event::firstOrNew(['id_facebook' => $node->getId()], $eventAttr);
+            $event->forceFill([
                 'venue_id' => $venue->id,
                 'last_pulled_at' => now(),
-            ]));
-            $event->source = $eventAttr;
+                'source' => $eventAttr,
+
+            ]);
+
+            if ($event->id) {
+                $this->line("Updated {$event->name} [#{$event->id}]");
+            } else {
+                $this->info("Added {$event->name}");
+            }
 
             $event->save();
-            $this->info("Saved {$event->name}");
         });
     }
 }
