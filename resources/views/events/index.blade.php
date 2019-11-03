@@ -6,7 +6,7 @@
 
     <nav>
         @foreach($allEvents->keys() as $month)
-            <a class="mr-4 hover:text-red-800 underline" href="#{{ str_slug($month) }}">{{ $month }}</a>
+            <a class="mr-4 hover:text-red-800 underline capitalize" href="#{{ str_slug($month) }}">{{ $month }}</a>
         @endforeach
     </nav>
 
