@@ -1,6 +1,9 @@
 @extends('base')
 
 @section('content')
+
+    @include('_partials.breadcrumb')
+
     <div class="flex">
         <div class="w-2/3">
 

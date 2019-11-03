@@ -22,7 +22,8 @@
         "laravel/nova": "^2.6",
         "laravel/tinker": "^1.0",
         "spatie/laravel-backup": "^6.7",
-        "spatie/nova-backup-tool": "^3.8"
+        "spatie/nova-backup-tool": "^3.8",
+        "spatie/schema-org": "^2.9"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

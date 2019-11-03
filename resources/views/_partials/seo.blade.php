@@ -3,3 +3,7 @@
 {{--<meta name="description" content="{{ $seo['description'] }}">--}}
 
 {{--<link rel="canonical" href="{{ $seo['canonical_url'] }}">--}}
+
+@isset($breadcrump)
+    {!! $breadcrumb->toScript() !!}
+@endisset
