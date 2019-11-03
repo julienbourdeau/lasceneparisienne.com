@@ -16,14 +16,12 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
 
-        // FACEBOOK
         $this->app->singleton(PersistentDataHandler::class, function () {
             return new PersistentDataHandler();
         });
 
         $this->app->singleton(Facebook::class, function () {
             $handler = new PersistentDataHandler();
-//            $handler->set('state', ['calendar_id' => $calendar->id]);
 
             return new Facebook([
                 'app_id' => config('services.facebook.id'),

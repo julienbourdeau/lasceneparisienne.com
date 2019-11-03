@@ -2,7 +2,7 @@
 
     <nav class="flex items-center justify-between flex-wrap p-4 md:px-0 lg:px-0">
         <div class="flex items-center flex-shrink-0 mr-6">
-            <span class="font-semibold text-xl tracking-tight">La Scene Parisienne</span>
+            <a href="{{ route('home') }}" class="font-semibold text-xl tracking-tight">La Scene Parisienne</a>
         </div>
 
         <div class="block lg:hidden">
