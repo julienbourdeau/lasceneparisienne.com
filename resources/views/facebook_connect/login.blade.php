@@ -16,7 +16,7 @@
     <a href="{{ $loginUrl }}" class="block text-center font-semibold border-blue-800 bg-blue-600 text-white rounded px-4 py-2 my-4">
         Login
     </a>
-    <p class="text-gray-500">App ID: {{ env('FACEBOOK_APP_ID') }}</p>
+    <p class="text-gray-500">App ID: {{ config('services.facebook.id') }}</p>
 </div>
 
 </body>
