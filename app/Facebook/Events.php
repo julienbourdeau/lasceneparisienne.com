@@ -21,7 +21,7 @@ class Events
     {
         $this->fb = $facebook;
 
-        $this->token = File::get(storage_path('token.txt'));
+        $this->token = File::exists($p = storage_path('token.txt')) ? File::get($p) : '';
 
         $this->fields = [
             'id', 'name', 'description', 'cover',
