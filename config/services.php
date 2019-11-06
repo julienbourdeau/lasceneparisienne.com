@@ -15,8 +15,8 @@ return [
     */
 
     'facebook' => [
-        'id' => env('FACEBOOK_APP_ID'),
-        'secret' => env('FACEBOOK_APP_SECRET'),
+        'id' => env('FACEBOOK_APP_ID', 'yolo'),
+        'secret' => env('FACEBOOK_APP_SECRET', 'yolo'),
     ],
 
     'mailgun' => [
