@@ -18,7 +18,9 @@ class EventController extends Controller
             'schema' => [
                 'event' => $event->toSchema(),
             ],
-
+            'title' => $event->name,
+            'description' => $event->meta_description,
+            'canonical' => $event->canonical_url,
         ]);
     }
 

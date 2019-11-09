@@ -1,8 +1,10 @@
-{{--<title>{{ $seo['title'] }}</title>--}}
+<title>{{ $title }}</title>
 
-{{--<meta name="description" content="{{ $seo['description'] }}">--}}
+<meta name="description" content="{{ $description }}">
 
-{{--<link rel="canonical" href="{{ $seo['canonical_url'] }}">--}}
+@isset($canonical)
+    <link rel="canonical" href="{{ $canonical }}">
+@endisset
 
 @isset($breadcrumb)
     {!! $breadcrumb->toScript() !!}

@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Facebook\PersistentDataHandler;
 use Facebook\Facebook;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -15,7 +16,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
         $this->app->singleton(PersistentDataHandler::class, function () {
             return new PersistentDataHandler();
         });
@@ -42,6 +42,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        View::share('title', 'Agenda concerts à Paris: only Metal, Punk & Hardcore');
+        View::share('description', 'Du black metal au punk hardcore, en passant par le heavy ou le death, tous les concerts de metal et punk à Paris sont sur La Scene Parisienne.');
+
 //        \DB::listen(function ($query) {
 //                dump([
 //                'query' => $query->sql,

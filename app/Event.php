@@ -53,9 +53,19 @@ class Event extends Model
         return nl2br($html);
     }
 
+    public function getCanonicalUrlAttribute()
+    {
+        return canonical($this);
+    }
+
+    public function getMetaDescriptionAttribute()
+    {
+        return str_limit($this->description, 155);
+    }
+
     public function toSchema()
     {
-        $canonical = canonical($this);
+        $canonical = $this->getCanonicalUrlAttribute();
 
         return Schema::musicEvent()
             ->identifier($canonical)
