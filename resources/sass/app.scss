@@ -6,7 +6,15 @@
 
 body {
     @apply font-sans font-light;
-    webkit-tap-highlight-color: config('colors.red-800');
     //background-image: url("/images/bg-dots.png");
     -webkit-text-size-adjust: 100%;
+}
+
+.fb-event-description {
+    a {
+        @apply border-b border-dashed border-black break-all;
+    }
+    a:hover {
+        @apply text-red-800 border-red-800;
+    }
 }
