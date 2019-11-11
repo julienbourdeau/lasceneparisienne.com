@@ -5,6 +5,7 @@ Route::redirect('/', '/events')->name('home');
 
 Route::get('/concerts', 'EventListController@index')->name('events');
 Route::get('/concert/{slug}', 'EventController@show')->name('event');
+Route::get('/archives/{period?}', 'ArchiveController@index')->name('archives');
 
 Route::get('/salles-concerts', 'VenueListController@index')->name('venues');
 Route::get('/salle-concert/{slug}', 'VenueController@show')->name('venue');

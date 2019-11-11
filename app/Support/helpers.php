@@ -12,3 +12,12 @@ function canonical(Model $model)
 
     throw new InvalidArgumentException('Cannot generate canonical URL for model'.get_class($model));
 }
+
+function carbon($time)
+{
+    if (is_numeric($time)) {
+        return \Carbon\Carbon::createFromTimestamp($time);
+    }
+
+    return new \Carbon\Carbon($time);
+}

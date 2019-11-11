@@ -2,7 +2,7 @@
 
     <nav class="flex items-center justify-between flex-wrap p-4 md:px-0 lg:px-0">
         <div class="flex items-center flex-shrink-0 mr-6">
-            <a href="{{ route('home') }}" class="font-semibold text-xl tracking-tight">La Scene Parisienne</a>
+            <a href="{{ route('home') }}" class="font-thin text-xl tracking-tighter">La Scene Parisienne</a>
         </div>
 
         <div class="block lg:hidden">
@@ -11,15 +11,16 @@
             </button>
         </div>
         <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-            <div class="text-sm lg:flex-grow">
-                <a href="{{ route('events') }}" class="block mt-4 lg:inline-block lg:mt-0 font-semibold hover:text-red-800 mr-5">
-                    Concerts
+            <div class="lg:flex-grow">
+                <a href="{{ route('events') }}" class="block mt-4 lg:inline-block lg:mt-0 font-medium hover:text-red-800 mr-5">
+                    Prochains Concerts
                 </a>
-                <a href="{{ route('venues') }}" class="block mt-4 lg:inline-block lg:mt-0 font-semibold hover:text-red-800 mr-5">
+                <a href="{{ route('venues') }}" class="block mt-4 lg:inline-block lg:mt-0 font-medium hover:text-red-800 mr-5">
                     Salles
                 </a>
             </div>
             <div>
+                <a href="{{ route('archives') }}" class="block mt-4 lg:inline-block lg:mt-0 text-sm hover:text-red-800 mr-5">Archive</a>
                 <a href="mailto:julien@sigerr.org" class="inline-block text-sm px-4 py-2 leading-none border border-black rounded hover:border-red-800 hover:text-red-800 mt-4 lg:mt-0">Contact</a>
             </div>
         </div>
