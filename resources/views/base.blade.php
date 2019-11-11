@@ -26,6 +26,7 @@
 
     @include('_partials.footer')
 
+    @include('_partials.analytics')
 
 </body>
 </html>
