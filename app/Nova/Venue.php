@@ -24,7 +24,7 @@ class Venue extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -32,7 +32,7 @@ class Venue extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'name', 'slug', 'address_formatted',
     ];
 
     /**
@@ -47,11 +47,11 @@ class Venue extends Resource
             ID::make()->sortable(),
             Number::make('calendar_id')->onlyOnIndex(),
             Text::make('Name'),
-            Text::make('City'),
+            Text::make('City')->hideFromIndex(),
             Text::make('Address', 'address_formatted'),
             Text::make('Introduction')->hideFromIndex(),
             Text::make('Cover')->hideFromIndex(),
-            Text::make('Email'),
+            Text::make('Email')->hideFromIndex(),
             Code::make('Opening Hours')->json(),
             Code::make('Meta')->json(),
 

@@ -29,7 +29,7 @@ class Event extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static $title = 'name';
 
     /**
      * The columns that should be searched.
@@ -37,7 +37,7 @@ class Event extends Resource
      * @var array
      */
     public static $search = [
-        'id',
+        'id', 'name', 'slug',
     ];
 
     public static $with = ['venue'];
@@ -56,31 +56,26 @@ class Event extends Resource
             Text::make('Date', function ($m) {
                 return '<strong>'.$m->start_time->diffForHumans().'</strong><br>'.$m->start_time->toDateString();
             })->asHtml(),
+            BelongsTo::make('Venue')->searchable(),
             DateTime::make('Start time')->hideFromIndex(),
             DateTime::make('End time')->hideFromIndex(),
-            new Panel('Time and description', $this->getContentFields()),
-            HasOne::make('Venue'),
+
+            new Panel('Time and description', [
+                Textarea::make('Description'),
+                Text::make('Cover')->hideFromIndex(),
+                Image::make('Cover', function ($m) {
+                    return '/covers'.$m->cover;
+                })
+            ]),
+
+            new Panel('Technical', [
+                Text::make('uuid')->onlyOnDetail(),
+                DateTime::make('deleted_at')->onlyOnDetail(),
+                DateTime::make('created_at')->onlyOnDetail(),
+                DateTime::make('updated_at')->onlyOnDetail(),
+            ]),
 
 
-            Text::make('uuid')->onlyOnDetail(),
-            DateTime::make('deleted_at')->onlyOnDetail(),
-            DateTime::make('created_at')->onlyOnDetail(),
-            DateTime::make('updated_at')->onlyOnDetail(),
-
-        ];
-    }
-
-    protected function getContentFields()
-    {
-        return [
-            Textarea::make('Description'),
-            Text::make('Cover')->hideFromIndex(),
-//            Text::make('Cover', function ($m) {
-//                return '<img src="'.$m->cover_url.'">';
-//            })->asHtml(),
-            Image::make('Cover', function ($m) {
-                return '/covers'.$m->cover;
-            })
         ];
     }
 
