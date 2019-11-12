@@ -7,7 +7,10 @@
     <div class="md:flex">
         <div class="md:w-2/3">
 
-            <h1 class="text-3xl font-bold mb-8 leading-none">{{ $event->name }}</h1>
+            <h1 class="text-3xl font-bold mb-8 leading-none">
+                {{ $event->name }}
+                @include('_partials.admin-actions')
+            </h1>
 
             <div class="my-6 md:my-12 p-4 bg-yellow-100 hover:shadow">
                 <p class="font-semibold text-red-900">{{ $event->start_time->format('l d F Y') }}</p>

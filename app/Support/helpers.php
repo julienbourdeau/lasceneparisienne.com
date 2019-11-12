@@ -21,3 +21,20 @@ function carbon($time)
 
     return new \Carbon\Carbon($time);
 }
+
+function adminLink(Model $model, $action = '')
+{
+    $resource = Str::plural(Str::kebab(class_basename(get_class($model))));
+
+    return "/admin/resources/$resource/{$model->id}/$action";
+}
+
+function adminView(Model $model)
+{
+    return adminLink($model);
+}
+
+function adminEdit(Model $model)
+{
+    return adminLink($model, 'edit');
+}
