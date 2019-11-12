@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Venue;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class VenueController extends Controller
@@ -13,6 +14,8 @@ class VenueController extends Controller
 
         return view('venues.show', [
             'venue' => $venue,
+            'upcomingEvents' => $venue->events()->where('start_time', '>', Carbon::yesterday())->get(),
+            'pastEvents' => $venue->events()->where('start_time', '<', Carbon::yesterday())->get(),
         ]);
     }
 }

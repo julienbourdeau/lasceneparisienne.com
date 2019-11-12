@@ -28,7 +28,7 @@ class Event extends Model
     ];
 
     protected $appends = [
-        'cover_url',
+        'cover_url', 'canonical_url',
     ];
 
     protected static function boot()

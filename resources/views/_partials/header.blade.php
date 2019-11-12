@@ -20,7 +20,7 @@
                 </a>
             </div>
             <div>
-                <a href="{{ route('archives') }}" class="block mt-4 lg:inline-block lg:mt-0 text-sm hover:text-red-800 mr-5">Archive</a>
+                <a href="{{ route('archives') }}" class="block mt-4 lg:inline-block lg:mt-0 text-sm hover:text-red-800 mr-5">Archives</a>
                 <a href="mailto:julien@sigerr.org" class="inline-block text-sm px-4 py-2 leading-none border border-black rounded hover:border-red-800 hover:text-red-800 mt-4 lg:mt-0">Contact</a>
             </div>
         </div>
