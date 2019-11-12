@@ -28,6 +28,10 @@
 
         <div class="mt-12 md:w-1/3 md:pl-8 md:mt-0">
             <img class="w-full rounded-bl-lg object-center object-cover" src="{{ $event->cover_url }}" alt="{{ $event->name }}">
+
+            <a href="https://www.facebook.com/events/{{ $event->id_facebook }}/" class="block pt-4 hover:text-blue-600">
+                Voir sur facebook
+            </a>
         </div>
     </div>
 @endsection
