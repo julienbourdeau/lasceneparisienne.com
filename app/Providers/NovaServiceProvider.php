@@ -2,8 +2,12 @@
 
 namespace App\Providers;
 
+use App\Nova\Metrics\EventsPerDays;
+use App\Nova\Metrics\EventsPerMonth;
+use App\Nova\Metrics\NewEvents;
+use App\Nova\Metrics\CountEvents;
+use App\Nova\Metrics\TotalEvents;
 use Laravel\Nova\Nova;
-use Laravel\Nova\Cards\Help;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 
@@ -54,7 +58,11 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new Help,
+            new TotalEvents(),
+            new CountEvents(),
+//            new NewEvents(),
+            new EventsPerDays(),
+//            new EventsPerMonth(),
         ];
     }
 

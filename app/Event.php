@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Ramsey\Uuid\Uuid;
 use Spatie\SchemaOrg\Schema;
 
 class Event extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,
+        Searchable;
 
     protected static $unguarded = true;
 
@@ -23,6 +25,10 @@ class Event extends Model
         'last_pulled_at' => 'datetime',
         'updated_at' => 'datetime',
         'created_at' => 'datetime',
+    ];
+
+    protected $appends = [
+        'cover_url',
     ];
 
     protected static function boot()
@@ -76,5 +82,14 @@ class Event extends Model
             ->endDate($this->end_time)
             ->description($this->description)
             ->image($this->cover_url);
+    }
+
+    public function toArray()
+    {
+        $array = parent::toArray();
+
+        unset($array['source']);
+
+        return $array;
     }
 }

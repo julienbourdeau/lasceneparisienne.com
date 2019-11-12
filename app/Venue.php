@@ -5,12 +5,14 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Laravel\Scout\Searchable;
 use Ramsey\Uuid\Uuid;
 use Spatie\SchemaOrg\Schema;
 
 class Venue extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes,
+        Searchable;
 
     protected static $unguarded = true;
 
