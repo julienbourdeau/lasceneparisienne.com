@@ -36,7 +36,7 @@ class ArchiveController extends Controller
             'current' => $current,
             'events' => $events,
             'period' => $period,
-            'start' => $start
+            'start' => $start ?? null,
         ]);
     }
 
