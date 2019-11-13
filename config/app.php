@@ -2,6 +2,8 @@
 
 return [
 
+    'title' => 'Agenda concerts à Paris: only Metal, Punk & Hardcore',
+
     /*
     |--------------------------------------------------------------------------
     | Application Name

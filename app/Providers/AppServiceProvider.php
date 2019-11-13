@@ -43,7 +43,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        View::share('title', 'Agenda concerts à Paris: only Metal, Punk & Hardcore');
+        View::share('title', config('app.title'));
         View::share('description', 'Du black metal au punk hardcore, en passant par le heavy ou le death, tous les concerts de metal et punk à Paris sont sur La Scene Parisienne.');
 
 

@@ -16,6 +16,7 @@
         "php": "^7.2",
         "ext-json": "*",
         "algolia/algoliasearch-client-php": "^2.5",
+        "eluceo/ical": "^0.15.1",
         "facebook/graph-sdk": "^5.7",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^6.2",

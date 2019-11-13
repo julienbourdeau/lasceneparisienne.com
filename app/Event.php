@@ -2,6 +2,9 @@
 
 namespace App;
 
+use App\Collection\EventCollection;
+use Eluceo\iCal\Component\Event as IcalEvent;
+use Eluceo\iCal\Property\Event\Geo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
@@ -91,5 +94,36 @@ class Event extends Model
         unset($array['source']);
 
         return $array;
+    }
+
+    public function toIcalEvent()
+    {
+        $vEvent = (new IcalEvent($this->uuid))
+            ->setSummary($this->name)
+            ->setDescription($this->description)
+            ->setStatus($this->is_canceled ? IcalEvent::STATUS_CANCELLED : IcalEvent::STATUS_CONFIRMED)
+            ->setDtStart($this->start_time)
+            ->setDtEnd($this->end_time)
+            ->setDtStamp($this->created_at)
+            ->setUrl($this->canonical_url)
+            ->setModified($this->last_pulled_at)
+        ;
+
+        if ($venue = $this->venue) {
+            $vEvent->setLocation(
+                implode(', ', [$venue->name, $venue->address_formatted]),
+                $venue->name
+            );
+        }
+        if ($venue->lat && $venue->lng) {
+            $vEvent->setGeoLocation(new Geo($venue->lat, $venue->lng));
+        }
+
+        return $vEvent;
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new EventCollection($models);
     }
 }
