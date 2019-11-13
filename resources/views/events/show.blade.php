@@ -1,5 +1,18 @@
 @extends('base')
 
+@section('seo')
+    <meta property="og:image" content="{{ $event->cover_url }}">
+    <meta property="og:title" content="{{ $event->name }}">
+    <meta property="og:updated_time" content="{{ $event->updated_at->toIso8601String() }}"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:description" content="{{ $description }}"/>
+    <meta name="twitter:title" content="{{ $event->name }} | La Scène Parisienne"/>
+    <meta name="twitter:site" content="@concertsParis"/>
+    <meta name="twitter:image" content="{{ $event->cover_url }}"/>
+    <meta name="twitter:creator" content="@concertsParis"/>
+@endsection
+
 @section('content')
 
     @include('_partials.breadcrumb')
