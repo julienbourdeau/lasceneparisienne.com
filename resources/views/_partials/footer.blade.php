@@ -5,6 +5,8 @@
             La Scene Parisienne - {{ date('Y') }}
         </div>
         <div class="mb-2 md:mb-0 lg:mb-0">
+            <a class="pr-3 md:pr-4 lg:pr-4" href="{{ route('ics') }}">Flux ICS</a>
+            <a class="pr-3 md:pr-4 lg:pr-4" href="{{ route('feeds.recently_added') }}">Flux RSS</a>
             <a class="" href="https://www.sigerr.org/journal/lasceneparisienne-a-brief-history-of-the-project">History of the project</a>
         </div>
 

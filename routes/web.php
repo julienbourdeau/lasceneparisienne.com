@@ -4,6 +4,7 @@
 Route::redirect('/', '/events')->name('home');
 
 Route::get('cal.ics', 'IcalController@feed')->name('ics');
+Route::feeds();
 
 Route::get('/concerts', 'EventListController@index')->name('events');
 Route::get('/concert/{slug}', 'EventController@show')->name('event');

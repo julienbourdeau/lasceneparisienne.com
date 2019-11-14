@@ -3,15 +3,18 @@
 namespace App;
 
 use App\Collection\EventCollection;
+use Carbon\Carbon;
 use Eluceo\iCal\Component\Event as IcalEvent;
 use Eluceo\iCal\Property\Event\Geo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Ramsey\Uuid\Uuid;
+use Spatie\Feed\Feedable;
+use Spatie\Feed\FeedItem;
 use Spatie\SchemaOrg\Schema;
 
-class Event extends Model
+class Event extends Model implements Feedable
 {
     use SoftDeletes,
         Searchable;
@@ -120,6 +123,24 @@ class Event extends Model
         }
 
         return $vEvent;
+    }
+
+    public static function getAllFeedEvents()
+    {
+        return static::where('start_time', '>', Carbon::yesterday())
+            ->orderByDesc('created_at')
+            ->get();
+    }
+
+    public function toFeedItem()
+    {
+        return FeedItem::create()
+            ->id($this->uuid)
+            ->title($this->name.' ['.$this->start_time->toDateString().']')
+            ->summary($this->description_html)
+            ->updated($this->updated_at)
+            ->link($this->canonical_url)
+            ->author('Julien Bourdeau');
     }
 
     public function newCollection(array $models = [])
