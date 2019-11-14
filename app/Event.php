@@ -12,6 +12,7 @@ use Laravel\Scout\Searchable;
 use Ramsey\Uuid\Uuid;
 use Spatie\Feed\Feedable;
 use Spatie\Feed\FeedItem;
+use Spatie\SchemaOrg\MusicEvent;
 use Spatie\SchemaOrg\Schema;
 
 class Event extends Model implements Feedable
@@ -75,7 +76,7 @@ class Event extends Model implements Feedable
         return str_limit($this->description, 155);
     }
 
-    public function toSchema()
+    public function toSchema(): MusicEvent
     {
         $canonical = $this->getCanonicalUrlAttribute();
 

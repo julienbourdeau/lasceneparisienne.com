@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Laravel\Scout\Searchable;
 use Ramsey\Uuid\Uuid;
+use Spatie\SchemaOrg\Place;
 use Spatie\SchemaOrg\Schema;
 
 class Venue extends Model
@@ -52,11 +53,11 @@ class Venue extends Model
             ->limit($limit);
     }
 
-    public function toSchema()
+    public function toSchema(): Place
     {
         $canonical = canonical($this);
 
-        Schema::place()
+        return Schema::place()
             ->identifier($canonical)
             ->url($canonical)
             ->name($this->name)
