@@ -1,10 +1,11 @@
 <?php
 
 //Route::get('/', 'HomeController')->name('home');
-Route::redirect('/', '/events')->name('home');
+Route::redirect('/', '/concerts')->name('home');
 
-Route::get('cal.ics', 'IcalController@feed')->name('ics');
 Route::feeds();
+Route::get('cal.ics', 'IcalController@feed')->name('ics');
+Route::get('/{uuid}.ics', 'IcalController@event')->name('event.ics');
 
 Route::get('/concerts', 'EventListController@index')->name('events');
 Route::get('/concert/{slug}', 'EventController@show')->name('event');

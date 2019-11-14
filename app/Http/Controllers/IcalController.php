@@ -12,4 +12,14 @@ class IcalController extends Controller
             ->header('Content-Type', 'text/calendar; charset=utf-8')
             ->header('Content-Disposition', 'attachment; filename="cal.ics"');
     }
+
+    public function event($uuid)
+    {
+        $events = Event::where('uuid', $uuid)->get();
+        $filename = str_slug($events->first()->name) . '.ics';
+
+        return response($events->toIcalCalendar()->render())
+            ->header('Content-Type', 'text/calendar; charset=utf-8')
+            ->header('Content-Disposition', 'attachment; filename="'.$filename.'"');
+    }
 }
