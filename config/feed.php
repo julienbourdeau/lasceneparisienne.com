@@ -16,7 +16,7 @@ return [
             /*
              * The feed will be available on this url.
              */
-            'url' => '',
+            'url' => '/rss',
 
             'title' => 'Concerts Metal à Paris - La Scene Parisienne',
             'description' => 'Tous les concerts Meta, Punk & Hardcore à Paris. Par ordre d\'ajout sur le site, seulement les concerts à venir.',
