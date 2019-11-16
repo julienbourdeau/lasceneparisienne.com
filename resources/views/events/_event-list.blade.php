@@ -4,10 +4,7 @@
         @if(isset($showIcalNote) && $showIcalNote)
             @if($loop->index == ($showIcalNote - 1))
                 <li class="md:float-right lg:float-right md:w-1/3 lg:w-1/4">
-                    <a class="block p-4 bg-yellow-100 hover:bg-yellow-200 hover:shadow" href="{{ route('ics') }}">
-                        <p class="font-medium">Ajoutez à votre agenda</p>
-                        <p><small>Tous les concerts automatiquement dans votre calendrier avec le flux ics</small></p>
-                    </a>
+                    @include('_partials.add-to-calendar')
                 </li>
             @endif
         @endif

@@ -20,9 +20,9 @@ return [
     ],
 
     'mailgun' => [
-        'domain' => env('MAILGUN_DOMAIN'),
+        'domain' => 'mg.lasceneparisienne.com',
         'secret' => env('MAILGUN_SECRET'),
-        'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
+        'endpoint' => 'api.eu.mailgun.net',
     ],
 
     'postmark' => [

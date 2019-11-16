@@ -38,6 +38,8 @@ class Event extends Model implements Feedable
         'cover_url', 'canonical_url',
     ];
 
+    protected $with = ['venue'];
+
     protected static function boot()
     {
         parent::boot();

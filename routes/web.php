@@ -1,7 +1,6 @@
 <?php
 
-//Route::get('/', 'HomeController')->name('home');
-Route::redirect('/', '/concerts')->name('home');
+Route::get('/', 'HomeController')->name('home');
 
 Route::feeds();
 Route::get('cal.ics', 'IcalController@feed')->name('ics');

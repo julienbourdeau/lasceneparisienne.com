@@ -3,16 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Event;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
     public function __invoke()
     {
-        $events = Event::limit(3)->get();
+        $thisWeek = Event::where([
+            ['start_time', '>=', Carbon::yesterday()],
+            ['start_time', '<=', $monday = now()->next(Carbon::MONDAY)],
+        ])->get();
+
+        $nextWeek = Event::where([
+            ['start_time', '>=', clone $monday],
+            ['start_time', '<=', $monday->addWeek()],
+        ])->get();
 
         return view('home', [
-            'events' => $events,
+            'thisWeek' => $thisWeek,
+            'nextWeek' => $nextWeek,
         ]);
     }
 }
