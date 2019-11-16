@@ -10,8 +10,8 @@
     <h1 class="text-3xl font-semibold mb-6">Prochains concerts à Paris</h1>
 
     <nav>
-        @foreach($eventsPerMonth->keys() as $month)
-            <a class="mr-4 hover:text-red-800 underline capitalize" href="#{{ str_slug($month) }}">{{ $month }}</a>
+        @foreach($monthlyLinks as $periodName => $link)
+            <a class="mr-4 hover:text-red-800 underline capitalize" href="{{ $link }}">{{ $periodName }}</a>
         @endforeach
     </nav>
 

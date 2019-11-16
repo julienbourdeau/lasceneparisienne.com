@@ -54,17 +54,12 @@ class ArchiveController extends Controller
             });
     }
 
-    private function getMonthOfYear()
-    {
-        return collect(['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']);
-    }
-
     public function periodToDate($period)
     {
         list($mois, $year) = explode('-', $period);
         $month = [
             'janvier' => 'January',
-            'fevrier' => 'Febuary',
+            'fevrier' => 'February',
             'mars' => 'March',
             'avril' => 'April',
             'mai' => 'May',
