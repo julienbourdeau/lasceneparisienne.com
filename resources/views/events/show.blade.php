@@ -17,10 +17,21 @@
 
     @include('_partials.breadcrumb')
 
-    <div class="md:flex">
-        <div class="md:w-2/3">
+    <div class="lg:flex lg:flex-row-reverse">
+        <div class="mt-12 mb-12 lg:mb-2 lg:w-1/3 lg:pl-8 lg:mt-0">
+            <img class="w-full rounded-bl-lg object-center object-cover" src="{{ $event->cover_url }}" alt="{{ $event->name }}">
 
-            <h1 class="text-3xl font-bold mb-8 leading-none">
+            <div class="hidden lg:block">
+                <a class="block pt-4 hover:text-red-800" href="{{ route('event.ics', $event->uuid) }}">Ajoutez à votre agenda</a>
+                <a class="block pt-4 hover:text-blue-600" href="https://www.facebook.com/events/{{ $event->id_facebook }}/">
+                    Voir sur facebook
+                </a>
+            </div>
+        </div>
+
+        <div class="lg:w-2/3">
+
+            <h1 class="text-xl md:text-2xl lg:text-3xl font-bold mb-8 leading-none">
                 {{ $event->name }}
                 @include('_partials.admin-actions')
             </h1>
@@ -33,20 +44,17 @@
                 <p class="text-gray-800">{{ $event->venue->address_formatted }}</p>
             </div>
 
-            <div class="fb-event-description mt-8">
+            <div class="fb-event-description mt-8 text-sm leading-tight md:text-base">
                 {!! $event->description_html !!}
             </div>
 
         </div>
+    </div>
 
-        <div class="mt-12 md:w-1/3 md:pl-8 md:mt-0">
-            <img class="w-full rounded-bl-lg object-center object-cover" src="{{ $event->cover_url }}" alt="{{ $event->name }}">
-
-            <a class="block pt-4 hover:text-red-800" href="{{ route('event.ics', $event->uuid) }}">Ajoutez à votre agenda</a>
-
-            <a class="block pt-4 hover:text-blue-600" href="https://www.facebook.com/events/{{ $event->id_facebook }}/">
-                Voir sur facebook
-            </a>
-        </div>
+    <div class="flex justify-around mt-12 text-sm text-center lg:hidden">
+        <a class="block px-3 mx-2 py-1 bg-gray-200 rounded hover:text-red-800" href="{{ route('event.ics', $event->uuid) }}">Ajoutez à votre agenda</a>
+        <a class="block px-3 mx-2 py-1 bg-gray-200 rounded hover:text-blue-600" href="https://www.facebook.com/events/{{ $event->id_facebook }}/">
+            Voir sur facebook
+        </a>
     </div>
 @endsection
