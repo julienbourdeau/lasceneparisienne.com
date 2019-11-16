@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Facebook\PersistentDataHandler;
 use Facebook\Facebook;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -46,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         View::share('title', config('app.title'));
         View::share('description', 'Du black metal au punk hardcore, en passant par le heavy ou le death, tous les concerts de metal et punk à Paris sont sur La Scene Parisienne.');
 
+        Paginator::defaultView('pagination::default');
 
         Blade::if('env', function ($env) {
             return app()->environment($env);

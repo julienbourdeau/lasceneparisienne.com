@@ -1,4 +1,4 @@
-<div class="container py-6 md:py-8 lg:py-16 px-4 md:px-0 lg:px-0 text-sm">
+<div class="container py-6 px-4 mt-4 md:mt-8 md:py-8 md:px-0 text-sm">
     <div class="flex items-center justify-between flex-wrap flex-col-reverse md:flex-row lg:flex-row">
 
         <div class="text-gray-500">

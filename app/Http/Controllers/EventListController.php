@@ -13,13 +13,16 @@ class EventListController extends Controller
         $events = Event::with('venue')
             ->where('start_time', '>', Carbon::yesterday())
             ->orderBy('start_time')
-            ->get()
-            ->groupBy(function ($e) {
-                return $e->start_time->monthName.' '.$e->start_time->year;
-            });
+            ->paginate(30);
+
+        $eventsPerMonth = $events->groupBy(function ($e) {
+            return $e->start_time->monthName.' '.$e->start_time->year;
+        });
 
         return view('events.index', [
-            'allEvents' => $events,
+            'eventsPerMonth' => $eventsPerMonth,
+            'events' => $events,
+            'canonical' => route('events'),
         ]);
     }
 }

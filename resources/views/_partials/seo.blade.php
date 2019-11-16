@@ -8,11 +8,11 @@
 <meta property="og:description" content="{{ $description }}">
 <meta property="og:url" content="{{ request()->fullUrl() }}">
 
-@yield('seo')
-
 @isset($canonical)
     <link rel="canonical" href="{{ $canonical }}">
 @endisset
+
+@yield('seo')
 
 @isset($breadcrumb)
     {!! $breadcrumb->toScript() !!}

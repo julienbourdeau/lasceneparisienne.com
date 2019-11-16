@@ -18,3 +18,26 @@ body {
         @apply text-red-800 border-red-800;
     }
 }
+
+
+.pagination {
+    li > span, li > a {
+        @apply block py-1 px-2 mx-1 border border-black rounded;
+    }
+    li > a:hover {
+        @apply border-red-800 text-red-800 shadow;
+    }
+    li.disabled > span {
+        @apply border-gray-500 text-gray-500;
+    }
+    li.active > span {
+        @apply border-red-900 text-red-900 bg-red-100;
+    }
+}
+@screen md {
+    .pagination {
+        li > span, li > a {
+            @apply px-3 mx-2;
+        }
+    }
+}
