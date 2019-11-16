@@ -10,11 +10,17 @@ class VenueListController extends Controller
     public function index()
     {
         $venues = Venue::withCount('upcomingEvents')
-            ->orderByDesc('upcoming_events_count')
-            ->get();
+            ->orderBy('name')
+            ->get()
+            ->groupBy(function ($v) {
+                return $v->name[0];
+            });
+
+        $top = Venue::withCount('upcomingEvents')->whereIn('id', [6, 7, 21, 22, 1])->get();
 
         return view('venues.index', [
-            'venues' => $venues
+            'venuesAlpha' => $venues,
+            'top' => $top,
         ]);
     }
 }
