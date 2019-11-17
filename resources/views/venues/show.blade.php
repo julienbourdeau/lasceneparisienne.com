@@ -8,13 +8,17 @@
 @section('script-footer')
     <script>
       mapboxgl.accessToken = 'pk.eyJ1IjoianVsaWVuYm91cmRlYXUiLCJhIjoiY2szMnlxa2E2MGFwazNpbXE0YTB5enpkNyJ9.B1h5q4L-OZRtrcv0vutGqA';
+
       var map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/dark-v10',
-        zoom: 13,
+        style: 'mapbox://styles/mapbox/light-v10',
+        zoom: 12,
         center: [{{ $venue->lng }}, {{ $venue->lat }}]
       });
     </script>
+
+    @include('venues._map_script', ['venues' => new \App\Collection\VenueCollection([$venue])])
+
 @endsection
 
 @section('content')

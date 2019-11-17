@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Collection\VenueCollection;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -66,5 +67,25 @@ class Venue extends Model
                 ->latitude($this->lat)
                 ->longitude($this->lng)
             );
+    }
+
+    public function toMapPoint()
+    {
+        return [
+            "type" => "Feature",
+            "properties" => [
+                "description" => '<strong>'.$this->name.'</strong>',
+                "icon" => "music"
+            ],
+            "geometry" => [
+                "type" => "Point",
+                "coordinates" => [$this->lng, $this->lat],
+            ]
+        ];
+    }
+
+    public function newCollection(array $models = [])
+    {
+        return new VenueCollection($models);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace App\Collection;
 
-use App\CalendarEvent;
 use App\Event;
 use Eluceo\iCal\Component\Calendar;
 use Illuminate\Database\Eloquent\Collection;
