@@ -116,7 +116,7 @@ class ImportFacebookEventCommand extends Command
             return false;
         }
 
-        if ($event->start_time->timestamp < now()->addDays(14)->timestamp) {
+        if ($event->start_time->timestamp < now()->addDays(30)->timestamp) {
             return true;
         }
 
