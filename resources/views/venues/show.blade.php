@@ -23,7 +23,10 @@
 
 @section('content')
 
-    <h1 class="text-3xl font-bold mb-16">{{ $venue->name }}</h1>
+    <h1 class="text-3xl font-bold mb-16">
+        {{ $venue->name }}
+        @include('_partials.admin-actions', ['model' => $venue])
+    </h1>
 
     <div class="md:flex h-full">
         <div class="md:w-1/2 md:pr-4">

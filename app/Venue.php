@@ -54,9 +54,14 @@ class Venue extends Model
             ->limit($limit);
     }
 
+    public function getCanonicalUrlAttribute()
+    {
+        return canonical($this);
+    }
+
     public function toSchema(): Place
     {
-        $canonical = canonical($this);
+        $canonical = $this->canonical_url;
 
         return Schema::place()
             ->identifier($canonical)
