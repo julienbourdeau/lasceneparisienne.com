@@ -8,10 +8,10 @@
 
     @include('_partials/seo')
 
-    {{--<script src="{{ asset('app.js') }}" defer></script>--}}
 
-    <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{--<script src="{{ asset('app.js') }}" defer></script>--}}
+    @yield('script')
 
 </head>
 <body>
@@ -27,6 +27,7 @@
     @include('_partials.footer')
 
     @include('_partials.analytics')
+    @yield('script-footer')
 
 </body>
 </html>

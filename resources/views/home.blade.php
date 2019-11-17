@@ -11,7 +11,13 @@
             <small class="text-sm text-red-900 hover:text-red-800 pl-3"><a href="{{ route('events') }}">Voir tous</a></small>
         </h1>
 
-        @include('events._event-list-with-cover', ['events' => $thisWeek])
+        <div class="flex flex-wrap">
+            @foreach($thisWeek as $event)
+                <div class="w-full md:w-1/2 lg:w-2/5 md:pr-12 my-4 md:my-6">
+                    @include('events._event-list-item-with-cover')
+                </div>
+            @endforeach
+        </div>
 
     </div>
 
