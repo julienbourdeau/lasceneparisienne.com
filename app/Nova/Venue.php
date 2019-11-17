@@ -8,7 +8,7 @@ use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
 use Laravel\Nova\Fields\Text;
-use Laravel\Nova\Http\Requests\NovaRequest;
+use Laravel\Nova\Fields\Trix;
 
 class Venue extends Resource
 {
@@ -49,8 +49,7 @@ class Venue extends Resource
             Text::make('Name'),
             Text::make('City')->hideFromIndex(),
             Text::make('Address', 'address_formatted'),
-            Text::make('Introduction')->hideFromIndex(),
-            Text::make('Cover')->hideFromIndex(),
+            Trix::make('Description')->alwaysShow(),
             Text::make('Email')->hideFromIndex(),
             Code::make('Opening Hours')->json(),
             Code::make('Meta')->json(),
