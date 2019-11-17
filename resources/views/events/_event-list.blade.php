@@ -20,7 +20,7 @@
             <div>
                 <h4 class="font-semibold text-lg">
                     <a class="hover:text-red-800" href="{{ route('event', $event->slug) }}">{{ $event->name }}</a>
-                    @auth @include('_partials.admin-actions') @endauth
+                    @auth @include('_partials.admin-actions', ['model' => $event]) @endauth
                 </h4>
                 <p class=""><a href="{{ route('venue', $event->venue->slug) }}">{{ $event->venue->name }}</a></p>
                 <p class="text-gray-600">{{ $event->venue->address_formatted }}</p>
