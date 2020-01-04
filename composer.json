@@ -10,6 +10,18 @@
         {
             "type": "composer",
             "url": "https://nova.laravel.com"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/FacebookImportStatus"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/FacebookImportStatus"
+        },
+        {
+            "type": "path",
+            "url": "./nova-components/EventOverview"
         }
     ],
     "require": {
@@ -29,7 +41,9 @@
         "spatie/laravel-backup": "^6.7",
         "spatie/laravel-feed": "^2.6",
         "spatie/nova-backup-tool": "^3.8",
-        "spatie/schema-org": "^2.8"
+        "spatie/schema-org": "^2.8",
+        "lsp/facebook-import-status": "*",
+        "lsp/event-overview": "*"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",

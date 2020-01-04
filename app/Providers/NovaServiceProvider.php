@@ -10,6 +10,8 @@ use App\Nova\Metrics\TotalEvents;
 use Laravel\Nova\Nova;
 use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
+use Lsp\EventOverview\EventOverview;
+use Lsp\FacebookImportStatus\FacebookImportStatus;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -58,11 +60,9 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function cards()
     {
         return [
-            new TotalEvents(),
-            new CountEvents(),
-//            new NewEvents(),
-            new EventsPerDays(),
-//            new EventsPerMonth(),
+            (new FacebookImportStatus())->lastRun(),
+            (new EventOverview())->overview(),
+            new EventsPerMonth(),
         ];
     }
 
