@@ -73,6 +73,11 @@ class Event extends Model implements Feedable
         return canonical($this);
     }
 
+    public function getFacebookUrlAttribute()
+    {
+        return "https://www.facebook.com/events/{$this->id_facebook}/";
+    }
+
     public function getMetaDescriptionAttribute()
     {
         return str_limit($this->description, 155);

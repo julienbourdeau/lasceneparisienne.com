@@ -55,7 +55,7 @@
 
     <div class="flex justify-around mt-12 text-sm text-center lg:hidden">
         <a class="block px-3 mx-2 py-1 bg-gray-200 rounded hover:text-red-800" href="{{ route('event.ics', $event->uuid) }}">Ajoutez à votre agenda</a>
-        <a class="block px-3 mx-2 py-1 bg-gray-200 rounded hover:text-blue-600" href="https://www.facebook.com/events/{{ $event->id_facebook }}/">
+        <a class="block px-3 mx-2 py-1 bg-gray-200 rounded hover:text-blue-600" href="{{ $event->facebook_url }}">
             Voir sur facebook
         </a>
     </div>
