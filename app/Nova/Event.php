@@ -5,6 +5,8 @@ namespace App\Nova;
 use App\Nova\Filters\StartDateFilter;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\BelongsTo;
+use Laravel\Nova\Fields\Boolean;
+use Laravel\Nova\Fields\Code;
 use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasOne;
 use Laravel\Nova\Fields\ID;
@@ -61,6 +63,8 @@ class Event extends Resource
             DateTime::make('End time')->hideFromIndex(),
 
             new Panel('Time and description', [
+                Boolean::make('canceled')->hideFromIndex(),
+                Boolean::make('soldout')->hideFromIndex(),
                 Textarea::make('Description'),
                 Text::make('Cover')->hideFromIndex(),
                 Image::make('Cover', function ($m) {
@@ -69,6 +73,8 @@ class Event extends Resource
             ]),
 
             new Panel('Technical', [
+                Text::make('ticket_url')->hideFromIndex(),
+                Code::make('meta')->json(),
                 Text::make('uuid')->onlyOnDetail(),
                 DateTime::make('deleted_at')->onlyOnDetail(),
                 DateTime::make('created_at')->onlyOnDetail(),

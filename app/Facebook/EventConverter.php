@@ -36,8 +36,13 @@ class EventConverter
     private function getMeta(GraphEvent $node): array
     {
         return [
-            'attending' => $node->getAttendingCount(),
-            'invited' => $node->getInvitedCount(),
+                'rsvp' => [
+                "maybe" => $node->getMaybeCount(),
+                "noreply" => $node->getNoreplyCount(),
+                'declined' => $node->getDeclinedCount(),
+                'attending' => $node->getAttendingCount(),
+                'invited' => $node->getInvitedCount(),
+            ],
             'cover' => optional($node->getCover())->getSource(),
         ];
     }
