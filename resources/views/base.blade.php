@@ -8,9 +8,8 @@
 
     @include('_partials/seo')
 
-
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    {{--<script src="{{ asset('app.js') }}" defer></script>--}}
+    <script src="{{ asset('js/app.js') }}"></script>
     @yield('script')
 
 </head>
