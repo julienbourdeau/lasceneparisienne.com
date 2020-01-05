@@ -27,7 +27,7 @@ class EventOverview extends Card
     public function overview()
     {
         return $this->withMeta([
-            'total' => Event::count(),
+            'total' => Event::where('deleted_at', null)->count(),
             'upcoming' => Event::where('start_time', '>', now()->subDay())->count(),
         ]);
     }
