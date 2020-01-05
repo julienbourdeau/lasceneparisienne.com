@@ -1,14 +1,9 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Api\PublicController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
+Route::get('/events', [PublicController::class, 'events'])->name('events');
+Route::get('/event/{uuid}', [PublicController::class, 'event'])->name('event');
+
+Route::get('/venues', [PublicController::class, 'venues'])->name('venues');
+Route::get('/venue/{uuid}', [PublicController::class, 'venue'])->name('venue');

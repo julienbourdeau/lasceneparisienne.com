@@ -28,6 +28,14 @@ class Venue extends Model
         'created_at' => 'datetime',
     ];
 
+    protected $hidden = [
+        'id', 'meta', 'source', 'opening_hours', 'deleted_at',
+    ];
+
+    protected $appends = [
+        'canonical_url'
+    ];
+
     protected static function boot()
     {
         parent::boot();
@@ -39,7 +47,7 @@ class Venue extends Model
 
     public function events()
     {
-        return $this->hasMany(Event::class)->orderBy('start_time');
+        return $this->hasMany(Event::class)->without(['venue'])->orderBy('start_time');
     }
 
     public function upcomingEvents()
@@ -49,9 +57,7 @@ class Venue extends Model
 
     public function nextEvents($limit = 5)
     {
-        return $this->events()
-            ->where('start_time', '>', time())
-            ->limit($limit);
+        return $this->upcomingEvents()->limit($limit);
     }
 
     public function getCanonicalUrlAttribute()

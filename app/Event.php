@@ -34,6 +34,10 @@ class Event extends Model implements Feedable
         'created_at' => 'datetime',
     ];
 
+    protected $hidden = [
+        'id', 'venue_id', 'deleted_at', 'cover', 'meta', 'source'
+    ];
+
     protected $appends = [
         'cover_url', 'canonical_url',
     ];
