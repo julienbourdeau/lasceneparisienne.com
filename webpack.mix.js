@@ -8,5 +8,12 @@ mix.js('resources/js/app.js', 'public/js')
         processCssUrls: false,
         postCss: [ tailwindcss('./resources/tailwind.config.js') ],
     })
-    .purgeCss()
+    .browserSync({
+        proxy: 'lascenenantaise.com.test'
+    })
 ;
+
+if (mix.inProduction()) {
+    mix.purgeCss()
+       .version();
+}
