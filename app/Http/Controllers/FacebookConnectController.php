@@ -60,7 +60,7 @@ class FacebookConnectController extends Controller
         $tokenMetadata = $oAuth2Client->debugToken($accessToken);
 
         // Validation (these will throw FacebookSDKException's when they fail)
-        $tokenMetadata->validateAppId(env('FACEBOOK_APP_ID'));
+        $tokenMetadata->validateAppId(config('services.facebook.id'));
 
         // If you know the user ID this access token belongs to, you can validate it here
         //$tokenMetadata->validateUserId('123');
