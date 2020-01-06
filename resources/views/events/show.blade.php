@@ -33,8 +33,15 @@
 
             <h1 class="text-xl md:text-2xl lg:text-3xl font-bold mb-8 leading-none">
                 {{ $event->name }}
-                @include('_partials.admin-actions', ['model' => $event])
             </h1>
+
+            @include('_partials.admin-actions', ['model' => $event])
+
+            @if($event->canceled)
+                <span class="text-xs uppercase border rounded py-2 px-3 font-bold bg-red-900 text-white tracking-wide">Annulé</span>
+            @elseif($event->soldout)
+                <span class="text-xs uppercase border rounded py-2 px-3 font-bold bg-gray-700 text-white tracking-wide">Complet</span>
+            @endif
 
             <div class="my-6 md:my-12 p-4 bg-yellow-100">
                 <p class="font-semibold text-red-900">{{ $event->start_time->format('l d F Y') }}</p>
@@ -59,4 +66,13 @@
             Voir sur facebook
         </a>
     </div>
+
+    @auth
+        <ul class="m-16 bg-gray-100 border py-4 px-8">
+            <li>Id: #{{ $event->id }}</li>
+            <li>UUID: {{ $event->uuid }}</li>
+            <li>Created at: {{ $event->created_at }}</li>
+            <li>Updated at: {{ $event->updated_at }}</li>
+        </ul>
+    @endauth
 @endsection

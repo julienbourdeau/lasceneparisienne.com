@@ -19,11 +19,19 @@
             </div>
             <div>
                 <h4 class="font-semibold text-lg">
-                    <a class="hover:text-red-800" href="{{ route('event', $event->slug) }}">{{ $event->name }}</a>
-                    @auth @include('_partials.admin-actions', ['model' => $event]) @endauth
+                    @if($event->canceled)
+                        <span class="text-sm border rounded py-1 px-2 font-normal text-red-800 border-red-800">Annulé</span>
+                    @elseif($event->soldout)
+                        <span class="text-sm border rounded py-1 px-2 font-normal text-gray-700 border-gray-700">Complet</span>
+                    @endif
+                    <a class="hover:text-red-800" href="{{ route('event', $event->slug) }}">
+                        {{ $event->name }}
+                    </a>
                 </h4>
-                <p class=""><a href="{{ route('venue', $event->venue->slug) }}">{{ $event->venue->name }}</a></p>
-                <p class="text-gray-600">{{ $event->venue->address_formatted }}</p>
+
+                <span class="md:block"><a href="{{ route('venue', $event->venue->slug) }}">{{ $event->venue->name }}</a></span>
+                <span class="md:block text-gray-600">{{ $event->venue->address_formatted }}</span>
+                @auth @include('_partials.admin-actions', ['model' => $event]) @endauth
             </div>
         </li>
     @endforeach

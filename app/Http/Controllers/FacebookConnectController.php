@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Calendar;
 use Facebook\Facebook;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Log;
 
 class FacebookConnectController extends Controller
 {
@@ -23,11 +25,6 @@ class FacebookConnectController extends Controller
 
     public function callback(Request $request, Facebook $fb)
     {
-//        $state = json_decode($request->get('state'), true);
-
-//        $calendar = Calendar::findOrFail($state['calendar_id']);
-
-//        $fb = fb($calendar);
         $helper = $fb->getRedirectLoginHelper();
 
         try {
@@ -56,15 +53,11 @@ class FacebookConnectController extends Controller
             exit;
         }
 
-        // Logged in
-        dump('Access Token', $accessToken->getValue());
-
         // The OAuth 2.0 client handler helps us manage access tokens
         $oAuth2Client = $fb->getOAuth2Client();
 
         // Get the access token metadata from /debug_token
         $tokenMetadata = $oAuth2Client->debugToken($accessToken);
-//        dump('Metadata', $tokenMetadata);
 
         // Validation (these will throw FacebookSDKException's when they fail)
         $tokenMetadata->validateAppId(env('FACEBOOK_APP_ID'));
@@ -81,14 +74,11 @@ class FacebookConnectController extends Controller
                 echo "<p>Error getting long-lived access token: " . $e->getMessage() . "</p>\n\n";
                 exit;
             }
-
-            dump('Long-lived', $accessToken->getValue());
         }
 
-//        Log::debug('Long lived token for user #'.Auth::user()->id.': '.$accessToken->getValue());
-
         File::put(storage_path('token.txt'), $accessToken->getValue());
+        Log::debug('Long lived token for user #'.Auth::user()->id.': '.str_limit($accessToken->getValue(), 8));
 
-        return 'Yolo';
+        return ['token' => $accessToken->getValue()];
     }
 }

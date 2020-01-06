@@ -20,7 +20,7 @@ class EventConverter
         }
         $lastUpdated = tap($node->getUpdatedTime())->setTimezone(new \DateTimeZone($tz));
 
-        return [
+        return array_merge([
             'name' => $node->getName(),
             'slug' => $this->getSlug($node),
             'description' => $node->getDescription(),
@@ -30,7 +30,7 @@ class EventConverter
             'end_time' => $end,
             'id_facebook' => $node->getId(),
             'fb_updated_at' => $lastUpdated,
-        ];
+        ], $this->getStatusAttributes($node));
     }
 
     private function getMeta(GraphEvent $node): array
@@ -55,5 +55,33 @@ class EventConverter
             .'-'
             .str_slug(optional($node->getPlace())->getName())
             , '-');
+    }
+
+    private function getStatusAttributes(GraphEvent $node)
+    {
+        $haystack = str_replace(' ', '', str_slug($node->getName()));
+
+        foreach (['canceled', 'cancelled', 'annule'] as $needle) {
+            if (strstr($haystack, $needle)) {
+                return [
+                    'canceled' => true,
+                    'soldout' => false,
+                ];
+            }
+        }
+
+        foreach (['complet', 'soldout', 'annule'] as $needle) {
+            if (strstr($haystack, $needle)) {
+                return [
+                    'canceled' => false,
+                    'soldout' => true,
+                ];
+            }
+        }
+
+        return [
+            'canceled' => false,
+            'soldout' => false,
+        ];
     }
 }

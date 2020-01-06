@@ -68,10 +68,12 @@ class ImportFacebookEventCommand extends Command
 
             $event = Event::firstOrNew(['id_facebook' => $node->getId()], $eventAttr);
             $event->forceFill([
+                'name' => $eventAttr['name'],
                 'venue_id' => $venue->id,
                 'last_pulled_at' => now(),
                 'source' => $eventAttr,
-
+                'canceled' => $eventAttr['canceled'],
+                'soldout' => $eventAttr['soldout'],
             ]);
 
             if ($event->id) {
