@@ -2,11 +2,8 @@
 
 namespace App\Facebook;
 
-use App\Calendar;
 use Facebook\Facebook;
-use Facebook\GraphNodes\GraphEdge;
 use Facebook\GraphNodes\GraphEvent;
-use Facebook\GraphNodes\GraphNode;
 use Illuminate\Support\Facades\File;
 
 class Events
@@ -77,9 +74,16 @@ class Events
         return $response->getGraphEvent();
     }
 
-    public function each(\Closure $cb)
+    public function eachUpcoming(\Closure $cb)
     {
-        $response = $this->fb->get('/me/events?since='.now()->subYears(2)->timestamp.'&fields='.implode(',', $this->fields), $this->token);
+        $this->each($cb, time());
+    }
+
+    public function each(\Closure $cb, int $sinceTs = null)
+    {
+        $since = $sinceTs ?? now()->subYears(2)->timestamp;
+
+        $response = $this->fb->get('/me/events?since='.$since.'&fields='.implode(',', $this->fields), $this->token);
         $client = $this->fb->getClient();
 
         do {

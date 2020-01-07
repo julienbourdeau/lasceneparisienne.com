@@ -53,7 +53,7 @@ class ImportFacebookEventCommand extends Command
  */
     public function handle(EventConverter $ec, VenueConverter $vc)
     {
-        $this->fb->each(function(GraphEvent $node) use ($ec, $vc) {
+        $this->fb->eachUpcoming(function(GraphEvent $node) use ($ec, $vc) {
 
             try {
                 $venue = Venue::where('id_facebook', $node->getPlace()->getId())->firstOrFail();
@@ -69,6 +69,7 @@ class ImportFacebookEventCommand extends Command
             $event = Event::firstOrNew(['id_facebook' => $node->getId()], $eventAttr);
             $event->forceFill([
                 'name' => $eventAttr['name'],
+                'description' => $eventAttr['description'],
                 'venue_id' => $venue->id,
                 'last_pulled_at' => now(),
                 'source' => $eventAttr,
