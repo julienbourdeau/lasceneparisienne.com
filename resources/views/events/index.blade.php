@@ -9,11 +9,15 @@
 
     <h1 class="text-3xl font-semibold mb-6">Prochains concerts à Paris</h1>
 
-    <nav>
+    <nav class="mb-16">
         @foreach($monthlyLinks as $periodName => $link)
             <a class="mr-4 hover:text-red-800 underline capitalize" href="{{ $link }}">{{ $periodName }}</a>
         @endforeach
     </nav>
+
+    <div class="float-right">
+        @include('events._select_list_format')
+    </div>
 
     @foreach($eventsPerMonth as $month => $list)
 

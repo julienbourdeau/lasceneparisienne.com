@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 
 class EventListController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $events = Event::with('venue')
             ->where('start_time', '>', Carbon::yesterday())
@@ -20,11 +20,17 @@ class EventListController extends Controller
             return $e->start_time->monthName.' '.$e->start_time->year;
         });
 
+        $display = $request->get('display');
+        if (!in_array($display, ['list', 'grid'])) {
+            $display = 'list';
+        }
+
         return view('events.index', [
             'eventsPerMonth' => $eventsPerMonth,
             'events' => $events,
             'monthlyLinks' => $this->getMonthlyLinks(),
             'canonical' => route('events'),
+            'display' => $display,
         ]);
     }
 

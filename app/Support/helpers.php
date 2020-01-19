@@ -2,6 +2,15 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+function currentUrl(array $parameters = [])
+{
+    return url()->toRoute(
+        \Illuminate\Support\Facades\Route::current(),
+        array_merge(request()->all(), $parameters),
+        true
+    );
+}
+
 function canonical(Model $model)
 {
     if ($model instanceof \App\Event) {
