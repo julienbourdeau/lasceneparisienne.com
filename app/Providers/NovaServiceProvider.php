@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Gate;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Lsp\EventOverview\EventOverview;
 use Lsp\FacebookImportStatus\FacebookImportStatus;
+use Lsp\FbTokenOverview\FbTokenOverview;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
@@ -62,7 +63,8 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             (new FacebookImportStatus())->lastRun(),
             (new EventOverview())->overview(),
-            new EventsPerMonth(),
+            (new FbTokenOverview())->overview(),
+            (new EventsPerMonth())->width('full'),
         ];
     }
 

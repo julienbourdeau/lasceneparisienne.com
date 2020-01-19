@@ -11,7 +11,9 @@
         "build-facebook-import-status": "cd nova-components/FacebookImportStatus && npm run dev",
         "build-facebook-import-status-prod": "cd nova-components/FacebookImportStatus && npm run prod",
         "build-event-overview": "cd nova-components/EventOverview && npm run dev",
-        "build-event-overview-prod": "cd nova-components/EventOverview && npm run prod"
+        "build-event-overview-prod": "cd nova-components/EventOverview && npm run prod",
+        "build-fb-token-overview": "cd nova-components/FbTokenOverview && npm run dev",
+        "build-fb-token-overview-prod": "cd nova-components/FbTokenOverview && npm run prod"
     },
     "devDependencies": {
         "axios": "^0.19",

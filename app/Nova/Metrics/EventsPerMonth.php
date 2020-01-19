@@ -27,8 +27,8 @@ class EventsPerMonth extends Trend
     public function ranges()
     {
         return [
-            6 => '6 Months',
             12 => '12 Months',
+            6 => '6 Months',
         ];
     }
 
