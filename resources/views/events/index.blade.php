@@ -21,9 +21,15 @@
 
     @foreach($eventsPerMonth as $month => $list)
 
-    <h3 id="{{ str_slug($month) }}" class="text-sm font-bold uppercase mt-10 mb-6">{{ $month }}</h3>
+        <h3 id="{{ str_slug($month) }}" class="text-sm font-bold uppercase mt-10 mb-6">{{ $month }}</h3>
 
-    @include('events._event-list', ['events' => $list, 'showIcalNote' => $loop->first ? 3 : false])
+        @if($display == 'grid')
+            @include('events._event-list-grid', ['events' => $list, 'showIcalNote' => $loop->first ? 3 : false])
+
+        @else
+            @include('events._event-list', ['events' => $list, 'showIcalNote' => $loop->first ? 3 : false])
+        @endif
+
 
     @endforeach
 
