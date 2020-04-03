@@ -9,7 +9,7 @@
         m=f.getElementsByTagName('script')[0];
     o.async=1; o.src=t; o.id='fathom-script';
     m.parentNode.insertBefore(o,m)
-  })(document, window, 'https://stats.sigr.li/tracker.js', 'fathom');
+  })(document, window, 'https://cdn.usefathom.com/tracker.js', 'fathom');
   fathom('set', 'siteId', 'EEOIXMNI');
   fathom('trackPageview');
 </script>
