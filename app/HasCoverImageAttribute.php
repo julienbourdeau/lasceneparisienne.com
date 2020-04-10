@@ -15,8 +15,10 @@ trait HasCoverImageAttribute
             File::makeDirectory($dir, 0755, true);
         }
 
-        if (!$force && !$this->shouldUpdateCover($finalPath)) {
-            return;
+        if (!$force) {
+            if (!$this->shouldUpdateCover($finalPath)) {
+                return;
+            }
         }
 
         File::put($tmpPath = storage_path($this->uuid), file_get_contents($this->meta['cover']));
@@ -31,15 +33,7 @@ trait HasCoverImageAttribute
             return true;
         }
 
-        if (File::lastModified($file) > now()->subDays(2)->timestamp) {
-            return false;
-        }
-
-        if ($this->start_time->timestamp < now()->addDays(30)->timestamp) {
-            return true;
-        }
-
-        return false;
+        return File::lastModified($file) > now()->subDays(2)->timestamp;
     }
 
     protected function getCoverPath()

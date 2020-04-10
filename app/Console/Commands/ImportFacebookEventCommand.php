@@ -19,7 +19,7 @@ class ImportFacebookEventCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'import:facebook';
+    protected $signature = 'import:facebook {--f|force}';
 
     /**
      * The console command description.
@@ -65,7 +65,7 @@ class ImportFacebookEventCommand extends Command
             }
 
             $eventAttr = $ec->convert($node);
-            $forceCoverUpdate = false;
+            $forceCoverUpdate = $this->option('force');
 
             $event = Event::where('id_facebook', $node->getId())->first();
 
