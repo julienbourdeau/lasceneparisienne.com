@@ -18,6 +18,7 @@ use Spatie\SchemaOrg\Schema;
 class Event extends Model implements Feedable
 {
     use SoftDeletes,
+        HasCoverImageAttribute,
         Searchable;
 
     protected static $unguarded = true;
@@ -56,6 +57,16 @@ class Event extends Model implements Feedable
     public function venue()
     {
         return $this->belongsTo(Venue::class);
+    }
+
+    public function startDateIs(\DateTime $newDate)
+    {
+        return $this->start_time->rawFormat('Y-m-d') === $newDate->format('Y-m-d');
+    }
+
+    public function isPast()
+    {
+        return $this->startDateIs(now());
     }
 
     public function getCoverUrlAttribute()

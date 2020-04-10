@@ -65,64 +65,33 @@ class ImportFacebookEventCommand extends Command
             }
 
             $eventAttr = $ec->convert($node);
+            $forceCoverUpdate = false;
 
-            $event = Event::firstOrNew(['id_facebook' => $node->getId()], $eventAttr);
-            $event->forceFill([
-                'name' => $eventAttr['name'],
-                'description' => $eventAttr['description'],
-                'venue_id' => $venue->id,
-                'last_pulled_at' => now(),
-                'source' => $eventAttr,
-                'canceled' => $eventAttr['canceled'],
-                'soldout' => $eventAttr['soldout'],
-            ]);
+            $event = Event::where('id_facebook', $node->getId())->first();
 
-            if ($event->id) {
-                $this->line("Updated {$event->name} [#{$event->id}]");
+            if (is_null($event)) {
+                $event = new Event($eventAttr);
+
+                $this->info("[{$event->start_time->toDateString()}] Adding {$event->name}...");
             } else {
-                $this->info("Added {$event->name}");
+                if ($event->startDateIs($eventAttr['start_time'])) {
+                    $forceCoverUpdate = true;
+                    $this->warn("Event #{$event->id} has a new date: {$event->start_time->toDateString()}");
+                }
+
+                unset($eventAttr['slug']);
+                $event->forceFill($eventAttr);
+
+                $this->line("[{$event->start_time->toDateString()}] Updating {$event->name} (#{$event->id})...");
             }
 
             $event->save();
 
-            $ext = File::extension(parse_url($event->meta['cover'])['path']);
-            $cover = "/{$event->start_time->year}/{$event->slug}.$ext";
-            $finalPath = storage_path('app/public/covers'.$cover);
-            if (!File::isDirectory($dir = dirname($finalPath))) {
-                File::makeDirectory($dir, 0755, true);
-            }
-
-            if (! $this->shouldUpdateCover($event, $finalPath)) {
-                return;
-            }
-
             try {
-                File::put($tmpPath = storage_path($event->uuid), file_get_contents($event->meta['cover']));
+                $event->updateCover($forceCoverUpdate);
             } catch (\Exception $e) {
                 $this->warn($e->getMessage());
-                return;
             }
-
-            File::move($tmpPath, $finalPath);
-
-            $event->update(['cover' => $cover]);
         });
-    }
-
-    public function shouldUpdateCover($event, $file)
-    {
-        if (! File::exists($file)) {
-            return true;
-        }
-
-        if (File::lastModified($file) > now()->subDays(2)->timestamp) {
-            return false;
-        }
-
-        if ($event->start_time->timestamp < now()->addDays(30)->timestamp) {
-            return true;
-        }
-
-        return false;
     }
 }
