@@ -74,7 +74,7 @@ class ImportFacebookEventCommand extends Command
 
                 $this->info("[{$event->start_time->toDateString()}] Adding {$event->name}...");
             } else {
-                if ($event->startDateIs($eventAttr['start_time'])) {
+                if (! $event->startDateIs($eventAttr['start_time'])) {
                     $forceCoverUpdate = true;
                     $this->warn("Event #{$event->id} has a new date: {$event->start_time->toDateString()}");
                 }
