@@ -1,5 +1,5 @@
 <template>
-    <ais-instant-search :search-client="searchClient" index-name="LOCAL_lsp_events">
+    <ais-instant-search :search-client="searchClient" :index-name="indexName">
         <ais-search-box placeholder="Rechercher un concert" />
         <ais-state-results>
             <template slot-scope="{ query, hits }">
@@ -26,13 +26,14 @@
   import algoliasearch from 'algoliasearch/lite';
 
   export default {
+    props: ['appId', 'apiKey', 'indexName'],
     data() {
       return {
         searchClient: algoliasearch(
-            'SRL5P157XA',
-            '10480f7c0e52ba4e56514425b0e9294c',
+            this.appId,
+            this.apiKey,
         ),
       };
-    },
+    }
   };
 </script>
