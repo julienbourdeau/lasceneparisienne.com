@@ -95,6 +95,33 @@ class Venue extends Model
         ];
     }
 
+    public function toSearchableArray()
+    {
+        $array = $this->toArray();
+
+        unset($array['created_at'], $array['updated_at']);
+
+        $array['total_events_count'] = $this->events()->count();
+        $array['upcoming_events_count'] = $this->upcomingEvents()->count();
+
+        return $array;
+    }
+
+    public function getAlgoliaIndexSettings()
+    {
+        return [
+            'searchableAttributes' => [
+                'name', 'description', 'address_formatted', 'email', 'id_facebook', 'uuid'
+            ],
+            'unretrievableAttributes' => ['id_facebook'],
+            'disableTypoToleranceOnAttributes' => ['id_facebook', 'uuid'],
+            'ranking' => [
+                'desc(upcoming_events_count)', 'typo', 'geo', 'words', 'filters', 'proximity', 'attribute', 'exact', 'custom'
+            ],
+            'customRanking' => ['desc(total_events_count)'],
+        ];
+    }
+
     public function newCollection(array $models = [])
     {
         return new VenueCollection($models);

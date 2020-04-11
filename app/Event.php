@@ -66,7 +66,7 @@ class Event extends Model implements Feedable
 
     public function isPast()
     {
-        return $this->startDateIs(now());
+        return $this->start_time->format('ymd') < now()->format('ymd');
     }
 
     public function getCoverUrlAttribute()
@@ -98,6 +98,19 @@ class Event extends Model implements Feedable
         return str_limit($this->description, 155);
     }
 
+    public function getPopularityAttribute()
+    {
+        $rsvp = $this->meta['rsvp'] ?? [];
+        extract($rsvp + [
+            "maybe" => 0,
+            "noreply" => 0,
+            "declined" => 0,
+            "attending" => 0,
+        ]);
+
+        return eventPopularity($declined, $noreply, $maybe, $attending);
+    }
+
     public function toSchema(): MusicEvent
     {
         $canonical = $this->getCanonicalUrlAttribute();
@@ -119,9 +132,53 @@ class Event extends Model implements Feedable
 
         unset($array['source']);
 
+        return $array;
+    }
+
+    public function toSearchableArray()
+    {
+        $array =  $this->toArray();
+
+        if ($this->isPast()) {
+            $array['in_days'] = $this->start_time->diffInDays();
+        } else {
+            $array['in_days'] = 1000 + $this->start_time->diffInDays();
+        }
+        $array['popularity'] = $this->popularity;
         $array['start_date'] = $this->start_time->toFormattedDateString();
 
+        unset(
+            $array['slug'],
+            $array['start_time'], $array['end_time'],
+            $array['created_at'], $array['updated_at'],
+            $array['fb_updated_at'], $array['last_pulled_at']
+        );
+
+        $array['venue'] = [
+            'name' => $this->venue->name,
+            'city' => $this->venue->city,
+            'address_formatted' => $this->venue->address_formatted,
+            'lat' => $this->venue->lat,
+            'lng' => $this->venue->lng,
+            'canonical_url' => $this->venue->canonical_url,
+        ];
+
         return $array;
+    }
+
+    public function getAlgoliaIndexSettings()
+    {
+        return [
+            'searchableAttributes' => [
+                'name', 'description', 'venue.name', 'venue.address_formatted', 'id_facebook', 'uuid'
+            ],
+            'unretrievableAttributes' => ['id_facebook', 'popularity'],
+            'disableTypoToleranceOnAttributes' => ['id_facebook', 'uuid'],
+            'ranking' => [
+                'asc(in_days)', 'typo', 'geo', 'words', 'filters', 'proximity', 'attribute', 'exact', 'custom'
+            ],
+            'customRanking' => ['desc(popularity)'],
+        ];
     }
 
     public function toIcalEvent()
