@@ -110,6 +110,7 @@ class Venue extends Model
     public function getAlgoliaIndexSettings()
     {
         return [
+            'hitsPerPage' => 4,
             'searchableAttributes' => [
                 'name', 'description', 'address_formatted', 'email', 'id_facebook', 'uuid'
             ],

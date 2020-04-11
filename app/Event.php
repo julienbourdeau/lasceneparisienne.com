@@ -169,6 +169,7 @@ class Event extends Model implements Feedable
     public function getAlgoliaIndexSettings()
     {
         return [
+            'hitsPerPage' => 6,
             'searchableAttributes' => [
                 'name', 'description', 'venue.name', 'venue.address_formatted', 'id_facebook', 'uuid'
             ],
