@@ -1,0 +1,25 @@
+.ais-SearchBox-submit, .ais-SearchBox-reset {
+    @apply hidden;
+}
+
+.ais-SearchBox-input {
+    @apply block w-full max-w-md m-auto border border-gray-600 rounded-full py-1 px-3 text-base;
+    &:active, &:focus {
+        @apply border-red-800;
+    }
+}
+
+.search-results-panel {
+    @apply bg-white w-full mt-3 shadow-md border border-gray-600 p-2;
+    z-index: 1001;
+}
+
+@screen lg {
+    .search-results-panel {
+        @apply absolute w-121;
+        margin-left: -21rem !important;
+    }
+    .ais-SearchBox-input {
+        @apply w-84;
+    }
+}

@@ -2,7 +2,7 @@
 
 @tailwind components;
 
-@tailwind utilities;
+@import '_search.scss';
 
 body {
     @apply font-sans font-light;
@@ -41,3 +41,5 @@ body {
         }
     }
 }
+
+@tailwind utilities;

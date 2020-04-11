@@ -9,7 +9,7 @@
     @include('_partials/seo')
 
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <script src="{{ mix('js/app.js') }}"></script>
+    <script async src="{{ mix('js/app.js') }}"></script>
     @yield('script')
 
 </head>

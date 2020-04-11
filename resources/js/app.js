@@ -2,20 +2,15 @@ require('./bootstrap');
 
 import Vue from 'vue';
 import InstantSearch from 'vue-instantsearch';
-import algoliasearch from 'algoliasearch/lite';
 
 Vue.use(InstantSearch);
 
+Vue.component('search-container', require('./components/SearchContainer.vue').default);
+
 new Vue({
-    el: '#app',
-    data: {
-        searchClient: algoliasearch(
-            'YourApplicationID',
-            'YourAdminAPIKey',
-        ),
-    },
+    el: '#search',
 });
 
 window.toggleMenu = function() {
-    $('#nav').slideToggle();
-}
+    $('#nav-links').slideToggle();
+};

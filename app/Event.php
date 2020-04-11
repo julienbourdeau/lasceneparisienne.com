@@ -119,6 +119,8 @@ class Event extends Model implements Feedable
 
         unset($array['source']);
 
+        $array['start_date'] = $this->start_time->toFormattedDateString();
+
         return $array;
     }
 
