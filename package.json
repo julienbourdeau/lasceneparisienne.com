@@ -16,6 +16,7 @@
         "build-fb-token-overview-prod": "cd nova-components/FbTokenOverview && npm run prod"
     },
     "devDependencies": {
+        "algoliasearch": "^4.1.0",
         "axios": "^0.19",
         "browser-sync": "^2.26.7",
         "browser-sync-webpack-plugin": "^2.0.1",
@@ -28,6 +29,8 @@
         "sass": "^1.15.2",
         "sass-loader": "^7.1.0",
         "tailwindcss": "^1.1.3",
+        "vue": "^2.6.11",
+        "vue-instantsearch": "^2.6.0",
         "vue-template-compiler": "^2.6.11"
     }
 }
