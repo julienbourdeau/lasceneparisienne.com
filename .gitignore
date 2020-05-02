@@ -16,3 +16,6 @@ _ide_helper.php
 _ide_helper_models.php
 
 storage/token.txt
+.vapor/
+.env.production
+.env.staging
