@@ -1,5 +1,5 @@
 id: 9598
-name: lasceneparisienne.com
+name: lasceneparisiennecom
 environments:
   production:
     memory: 1024
