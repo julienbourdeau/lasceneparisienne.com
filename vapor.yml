@@ -7,13 +7,13 @@ environments:
         runtime: php-7.4
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'
-            - 'php artisan event:cache'
+#            - 'php artisan event:cache'
     staging:
         memory: 1024
         cli-memory: 512
         database: Personal
-        database-user: lspstaging
+#        database-user: lspstaging
         runtime: php-7.4
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install'
-            - 'php artisan event:cache'
+#            - 'php artisan event:cache'
