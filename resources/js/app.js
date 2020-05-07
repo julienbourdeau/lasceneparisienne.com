@@ -1,4 +1,4 @@
-require('./bootstrap');
+import 'alpinejs'
 
 import Vue from 'vue';
 import InstantSearch from 'vue-instantsearch';
@@ -10,7 +10,3 @@ Vue.component('search-container', require('./components/SearchContainer.vue').de
 new Vue({
     el: '#search',
 });
-
-window.toggleMenu = function() {
-    $('#nav-links').slideToggle();
-};

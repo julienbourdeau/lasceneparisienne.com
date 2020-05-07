@@ -3,7 +3,7 @@
 
 @tailwind components;
 
-@import '_search.scss';
+@import '_search';
 
 body {
     @apply font-sans font-light;
