@@ -5,7 +5,7 @@ Route::get('/', 'HomeController')->name('home');
 Route::feeds();
 Route::get('cal.ics', 'IcalController@feed')->name('ics');
 Route::get('/{uuid}.ics', 'IcalController@event')->name('event.ics');
-Route::view('/public-api', 'api')->name('page.api');
+Route::get('/public-api', 'ApiController')->name('page.api');
 
 Route::get('/concerts', 'EventListController@index')->name('events');
 Route::get('/concert/{slug}', 'EventController@show')->name('event');
