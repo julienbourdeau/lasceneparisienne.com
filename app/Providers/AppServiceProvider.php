@@ -47,7 +47,7 @@ class AppServiceProvider extends ServiceProvider
     {
         View::share('title', config('app.title'));
         View::share('description', 'Du black metal au punk hardcore, en passant par le heavy ou le death, tous les concerts de metal et punk à Paris sont sur La Scene Parisienne.');
-        View::share('indexName', Event::first()->searchableAs());
+        View::share('indexName', config('scout.prefix')."events");
 
         Paginator::defaultView('pagination::default');
 

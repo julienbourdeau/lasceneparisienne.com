@@ -1,7 +1,7 @@
 @extends('base')
 
 @section('seo')
-    <meta property="og:image" content="{{ $event->cover_url }}">
+    <meta property="og:image" content="{{ $event->cover }}">
     <meta property="og:title" content="{{ $event->name }}">
     <meta property="og:updated_time" content="{{ $event->updated_at->toIso8601String() }}"/>
 
@@ -9,7 +9,7 @@
     <meta name="twitter:description" content="{{ $description }}"/>
     <meta name="twitter:title" content="{{ $event->name }} | La Scène Parisienne"/>
     <meta name="twitter:site" content="@concertsParis"/>
-    <meta name="twitter:image" content="{{ $event->cover_url }}"/>
+    <meta name="twitter:image" content="{{ $event->cover }}"/>
     <meta name="twitter:creator" content="@concertsParis"/>
 @endsection
 
@@ -19,7 +19,7 @@
 
     <div class="lg:flex lg:flex-row-reverse">
         <div class="mt-12 mb-12 lg:mb-2 lg:w-1/3 lg:pl-8 lg:mt-0">
-            <img class="w-full rounded-bl-lg object-center object-cover" src="{{ $event->cover_url }}" alt="{{ $event->name }}">
+            <img class="w-full rounded-bl-lg object-center object-cover" src="{{ $event->cover }}" alt="{{ $event->name }}">
 
             <div class="hidden lg:block">
                 <a class="block pt-4 hover:text-red-800" href="{{ route('event.ics', $event->uuid) }}">Ajoutez à votre agenda</a>

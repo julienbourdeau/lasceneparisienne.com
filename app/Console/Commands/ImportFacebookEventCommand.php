@@ -40,7 +40,7 @@ class ImportFacebookEventCommand extends Command
 
         $lastPulledLimit = now()->subHour();
         Event::where('start_time', '>', now()->subMonth())->get()->each(function ($event) use ($lastPulledLimit) {
-            if ($event->last_pull_at > $ten_min_ago) {
+            if ($event->last_pull_at > $lastPulledLimit) {
                 return;
             }
             try {

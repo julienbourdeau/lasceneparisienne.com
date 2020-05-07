@@ -6,6 +6,7 @@ use App\Calendar;
 use Facebook\Facebook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 
@@ -76,7 +77,7 @@ class FacebookConnectController extends Controller
             }
         }
 
-        File::put(storage_path('token.txt'), $accessToken->getValue());
+        Cache::put('facebook-token', $accessToken->getValue());
         Log::debug('Long lived token for user #'.Auth::user()->id.': '.str_limit($accessToken->getValue(), 8));
 
         return ['token' => $accessToken->getValue()];

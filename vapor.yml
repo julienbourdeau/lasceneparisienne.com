@@ -1,19 +1,24 @@
-id: 9618
+id: 9796
 name: lasceneparisienne
 environments:
     production:
+        domain: lasceneparisienne.com
+        database: Personal
+        storage: la-scene-parisienne
         memory: 1024
         cli-memory: 512
         runtime: php-7.4
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'
-#            - 'php artisan event:cache'
+            - 'php artisan event:cache'
+        deploy:
+          - 'php artisan migrate --force'
     staging:
         memory: 1024
         cli-memory: 512
-        database: Personal
-#        database-user: lspstaging
         runtime: php-7.4
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install'
-#            - 'php artisan event:cache'
+            - 'php artisan event:cache'
+        deploy:
+          - 'php artisan migrate --force'

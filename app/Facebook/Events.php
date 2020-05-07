@@ -4,6 +4,7 @@ namespace App\Facebook;
 
 use Facebook\Facebook;
 use Facebook\GraphNodes\GraphEvent;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 
 class Events
@@ -18,7 +19,7 @@ class Events
     {
         $this->fb = $facebook;
 
-        $this->token = File::exists($p = storage_path('token.txt')) ? File::get($p) : '';
+        $this->token = Cache::get('facebook-token');
 
         $this->fields = [
             'id', 'name', 'description', 'cover',

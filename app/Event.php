@@ -36,12 +36,10 @@ class Event extends Model implements Feedable
     ];
 
     protected $hidden = [
-        'id', 'venue_id', 'deleted_at', 'cover', 'meta', 'source'
+        'id', 'venue_id', 'deleted_at', 'meta', 'source'
     ];
 
-    protected $appends = [
-        'cover_url', 'canonical_url',
-    ];
+    protected $appends = ['canonical_url'];
 
     protected $with = ['venue'];
 
@@ -67,11 +65,6 @@ class Event extends Model implements Feedable
     public function isPast()
     {
         return $this->start_time->format('ymd') < now()->format('ymd');
-    }
-
-    public function getCoverUrlAttribute()
-    {
-        return asset('/storage/covers'.$this->cover);
     }
 
     public function getDescriptionHtmlAttribute()
@@ -123,7 +116,7 @@ class Event extends Model implements Feedable
             ->startDate($this->start_time)
             ->endDate($this->end_time)
             ->description($this->description)
-            ->image($this->cover_url);
+            ->image($this->cover);
     }
 
     public function toArray()

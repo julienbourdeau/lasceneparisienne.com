@@ -42,7 +42,7 @@
         "laravel/scout": "^7.2",
         "laravel/tinker": "^1.0",
         "laravel/vapor-cli": "^1.6",
-        "laravel/vapor-core": "^2.5",
+        "laravel/vapor-core": "^2.6",
         "lsp/event-overview": "*",
         "lsp/facebook-import-status": "*",
         "lsp/fb-token-overview": "*",

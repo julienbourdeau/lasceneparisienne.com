@@ -1,6 +1,6 @@
 
 <div class="shadow-md">
-    <div class="h-48 flex-none bg-cover rounded-t text-center overflow-hidden border-r border-t border-l border-gray-300 relative" style="background-image: url('{{ $event->cover_url }}')" title="Cover for {{ $event['name'] }}">
+    <div class="h-48 flex-none bg-cover rounded-t text-center overflow-hidden border-r border-t border-l border-gray-300 relative" style="background-image: url('{{ $event->cover }}')" title="Cover for {{ $event['name'] }}">
 
         @if($event->canceled)
             <div class="bg-red-700 opacity-50 absolute bottom-0 w-full h-10 pt-3"></div>
