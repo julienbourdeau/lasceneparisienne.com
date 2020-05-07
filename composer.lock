@@ -1940,16 +1940,16 @@
         },
         {
             "name": "laravel/vapor-core",
-            "version": "v2.6.0",
+            "version": "v2.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/laravel/vapor-core.git",
-                "reference": "b3698b8ef97b60f2b7e22406bc32a8f9208493b5"
+                "reference": "41693797d2ee606ca0eab342d22f7047193bdac7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/laravel/vapor-core/zipball/b3698b8ef97b60f2b7e22406bc32a8f9208493b5",
-                "reference": "b3698b8ef97b60f2b7e22406bc32a8f9208493b5",
+                "url": "https://api.github.com/repos/laravel/vapor-core/zipball/41693797d2ee606ca0eab342d22f7047193bdac7",
+                "reference": "41693797d2ee606ca0eab342d22f7047193bdac7",
                 "shasum": ""
             },
             "require": {
@@ -2005,7 +2005,7 @@
                 "laravel",
                 "vapor"
             ],
-            "time": "2020-05-06T19:41:17+00:00"
+            "time": "2020-05-07T11:00:02+00:00"
         },
         {
             "name": "league/commonmark",
