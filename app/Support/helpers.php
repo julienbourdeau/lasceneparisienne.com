@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Eloquent\Model;
+use League\CommonMark\CommonMarkConverter;
 
 function currentUrl(array $parameters = [])
 {
@@ -46,4 +47,9 @@ function adminView(Model $model)
 function adminEdit(Model $model)
 {
     return adminLink($model, 'edit');
+}
+
+function markdown($md)
+{
+    return app(CommonMarkConverter::class)->convertToHtml($md);
 }

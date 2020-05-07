@@ -24,12 +24,12 @@
 
         @foreach($endpoints as $id => $endpoint)
             <div class="mb-4 border border-blue-200">
-                <div  @click="{{ $id }} = !{{ $id }}" class="flex bg-blue-100 cursor-pointer">
+                <div  @click="{{ $id }} = !{{ $id }}" class="flex bg-blue-100 cursor-pointer hover:bg-blue-200">
                     <div class="text-blue-700 bg-blue-300 py-2 pl-4 pr-5 rounded-r-full">{{ $endpoint['verb'] }}</div>
                     <div class="w-full text-blue-700 py-2 px-4 font-mono">{{ $endpoint['endpoint'] }}</div>
                 </div>
-                <div x-show="{{ $id }}" class="bg-gray-100 overflow-scroll text-xs text-gray-800 py-4 px-2" style="display: none">
-                    <pre>{{ $endpoint['response'] }}</pre>
+                <div x-show="{{ $id }}" class="bg-gray-100 overflow-scroll text-xs py-4 px-2" style="display: none">
+                    {!! $endpoint['response'] !!}
                 </div>
             </div>
         @endforeach

@@ -9,6 +9,12 @@ use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
+use League\CommonMark\Block\Element\FencedCode;
+use League\CommonMark\Block\Element\IndentedCode;
+use League\CommonMark\CommonMarkConverter;
+use League\CommonMark\Environment;
+use Spatie\CommonMarkHighlighter\FencedCodeRenderer;
+use Spatie\CommonMarkHighlighter\IndentedCodeRenderer;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -53,6 +59,14 @@ class AppServiceProvider extends ServiceProvider
 
         Blade::if('env', function ($env) {
             return app()->environment($env);
+        });
+
+        $this->app->singleton(CommonMarkConverter::class, function () {
+            $environment = Environment::createCommonMarkEnvironment();
+            $environment->addBlockRenderer(FencedCode::class, new FencedCodeRenderer(['json']));
+            $environment->addBlockRenderer(IndentedCode::class, new IndentedCodeRenderer(['json']));
+
+            return new CommonMarkConverter([], $environment);
         });
 
 //        \DB::listen(function ($query) {

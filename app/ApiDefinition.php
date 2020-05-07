@@ -49,7 +49,9 @@ namespace App;
             self::getVenue(),
         ])->mapWithKeys(function ($item) {
             $item['verb'] = strtoupper($item['verb'] ?? 'GET');
-            $item['response'] = json_encode($item['response'], JSON_PRETTY_PRINT);
+            $item['response'] = markdown(
+                "```json\n" . json_encode($item['response'], JSON_PRETTY_PRINT) . "\n```"
+            );
 
             return [$item['id'] => $item];
         });
