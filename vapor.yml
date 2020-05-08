@@ -1,5 +1,7 @@
 id: 9796
 name: lasceneparisienne
+ignore:
+  - node_modules
 environments:
     production:
         domain: lasceneparisienne.com
@@ -11,8 +13,10 @@ environments:
         build:
             - 'COMPOSER_MIRROR_PATH_REPOS=1 composer install --no-dev'
             - 'php artisan event:cache'
+            - 'yarn install && yarn prod'
         deploy:
           - 'php artisan migrate --force'
+
     staging:
         memory: 1024
         cli-memory: 512
