@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Dev;
 
 use App\Event;
 use App\Mail\NextWeekProgramme;

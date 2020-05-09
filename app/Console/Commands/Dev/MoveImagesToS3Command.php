@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Dev;
 
 use App\Event;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\File;
 
-class MoveImagesToS3 extends Command
+class MoveImagesToS3Command extends Command
 {
     /**
      * The name and signature of the console command.
@@ -23,6 +22,7 @@ class MoveImagesToS3 extends Command
             if (!$event->cover) {
                 continue;
             }
+
             if (starts_with($event->cover, 'https://')) {
                 $this->line('Already uploaded: '.$event->name);
                 continue;
@@ -30,7 +30,7 @@ class MoveImagesToS3 extends Command
 
             $folder = 'covers';
             $dest = $folder.$event->cover;
-            $uploaded = \Storage::disk('s3')->put($dest, file_get_contents(storage_path('app/public/covers'.$event->cover)));
+            $uploaded = \Storage::disk('s3')->put($dest, file_get_contents(storage_path('app/public/covers'.$event->cover)), 'public');
 
             if ($uploaded) {
                 $meta = $event->meta;
