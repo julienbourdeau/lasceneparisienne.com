@@ -4,16 +4,17 @@ namespace App\Facebook;
 
 use Facebook\Facebook;
 use Facebook\GraphNodes\GraphEvent;
+use Facebook\GraphNodes\GraphUser;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\File;
 
 class Events
 {
-    private $fb;
+    private Facebook $fb;
 
     private $token;
 
-    private $fields;
+    private array $fields;
 
     public function __construct(Facebook $facebook)
     {
@@ -68,19 +69,26 @@ class Events
             });
     }
 
-    public function get($id)
+    public function me(): GraphUser
+    {
+        $response = $this->fb->get('/me', $this->token);
+
+        return $response->getGraphUser();
+    }
+
+    public function get($id): GraphEvent
     {
         $response = $this->fb->get('/'.$id.'?fields='.implode(',', $this->fields), $this->token);
 
         return $response->getGraphEvent();
     }
 
-    public function eachUpcoming(\Closure $cb)
+    public function eachUpcoming(\Closure $cb): void
     {
         $this->each($cb, time());
     }
 
-    public function each(\Closure $cb, int $sinceTs = null)
+    public function each(\Closure $cb, int $sinceTs = null): void
     {
         $since = $sinceTs ?? now()->subYears(2)->timestamp;
 

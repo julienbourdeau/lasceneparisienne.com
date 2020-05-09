@@ -147,14 +147,16 @@ class Event extends Model implements Feedable
             $array['fb_updated_at'], $array['last_pulled_at']
         );
 
-        $array['venue'] = [
-            'name' => $this->venue->name,
-            'city' => $this->venue->city,
-            'address_formatted' => $this->venue->address_formatted,
-            'lat' => $this->venue->lat,
-            'lng' => $this->venue->lng,
-            'canonical_url' => $this->venue->canonical_url,
-        ];
+        if ($this->venue) {
+            $array['venue'] = [
+                'name' => $this->venue->name,
+                'city' => $this->venue->city,
+                'address_formatted' => $this->venue->address_formatted,
+                'lat' => $this->venue->lat,
+                'lng' => $this->venue->lng,
+                'canonical_url' => $this->venue->canonical_url,
+            ];
+        }
 
         return $array;
     }
