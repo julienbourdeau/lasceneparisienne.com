@@ -51,7 +51,8 @@
         "spatie/laravel-backup": "^6.7",
         "spatie/laravel-feed": "^2.6",
         "spatie/nova-backup-tool": "^3.8",
-        "spatie/schema-org": "^2.8"
+        "spatie/schema-org": "^2.8",
+        "laravel/ui": "^2.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.2",
