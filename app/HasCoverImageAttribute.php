@@ -3,42 +3,39 @@
 namespace App;
 
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 
 trait HasCoverImageAttribute
 {
     public function updateCover($force = false)
     {
-        $cover = $this->getCoverPath();
-        $finalPath = storage_path('app/public/covers'.$cover);
-
-        if (!File::isDirectory($dir = dirname($finalPath))) {
-            File::makeDirectory($dir, 0755, true);
-        }
+        $coverPath = $this->getCoverPath();
 
         if (!$force) {
-            if (!$this->shouldUpdateCover($finalPath)) {
+            if (!$this->shouldUpdateCover()) {
                 return;
             }
         }
 
-        File::put($tmpPath = storage_path($this->uuid), file_get_contents($this->meta['cover']));
-        File::move($tmpPath, $finalPath);
+        Storage::disk('s3')->put($coverPath, file_get_contents($this->meta['cover']), 'public');
 
-        $this->update(['cover' => $cover]);
+        $this->update(['cover' => Storage::disk('s3')->url($coverPath)]);
     }
 
-    protected function shouldUpdateCover($file)
+    protected function shouldUpdateCover()
     {
-        if (! File::exists($file)) {
+        $path = parse_url($this->cover)['path'];
+
+        if (! Storage::exists($path)) {
             return true;
         }
 
-        return File::lastModified($file) > now()->subDays(2)->timestamp;
+        return Storage::lastModified($path) > now()->subDays(2)->timestamp;
     }
 
     protected function getCoverPath()
     {
         $ext = File::extension(parse_url($this->meta['cover'])['path']);
-        return "/{$this->start_time->year}/{$this->slug}.$ext";
+        return "covers/{$this->start_time->year}/{$this->slug}.$ext";
     }
 }

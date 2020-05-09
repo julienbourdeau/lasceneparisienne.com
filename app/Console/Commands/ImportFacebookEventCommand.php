@@ -12,27 +12,29 @@ use Facebook\Exceptions\FacebookResponseException;
 use Facebook\GraphNodes\GraphEvent;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\File;
 
 class ImportFacebookEventCommand extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
-    protected $signature = 'import:facebook {--f|force}';
+    protected $signature = 'import:facebook {--id=*} {--f|force}';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
     protected $description = 'Import new Facebook events and skip all existing';
+
+    private Carbon $pulled_at;
 
     public function handle()
     {
         $this->pulled_at = now();
+
+        if ($ids = $this->option('id')) {
+            foreach($ids as $id) {
+                $event = Event::find($id);
+                $node = Fb::get($event->id_facebook);
+                $this->update($node, true);
+                exit(0);
+            }
+        }
 
         Fb::eachUpcoming(function(GraphEvent $node) {
             $this->update($node);
@@ -52,7 +54,7 @@ class ImportFacebookEventCommand extends Command
         });
     }
 
-    public function update(GraphEvent $node)
+    public function update(GraphEvent $node, $forceCoverUpdate = false)
     {
         $ec = app(EventConverter::class);
         $vc = app(VenueConverter::class);
@@ -67,8 +69,8 @@ class ImportFacebookEventCommand extends Command
         }
 
         $eventAttr = $ec->convert($node);
-        $forceCoverUpdate = $this->option('force');
 
+        /** @var Event $event */
         $event = Event::where('id_facebook', $node->getId())->first();
 
         if (is_null($event)) {
@@ -95,7 +97,7 @@ class ImportFacebookEventCommand extends Command
         $event->save();
 
         try {
-            $event->updateCover($forceCoverUpdate);
+            $event->updateCover($forceCoverUpdate || $this->option('force'));
         } catch (\Exception $e) {
             $this->warn($e->getMessage());
         }
