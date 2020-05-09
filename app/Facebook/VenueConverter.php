@@ -2,7 +2,6 @@
 
 namespace App\Facebook;
 
-use App\Venue;
 use Facebook\GraphNodes\GraphLocation;
 use Facebook\GraphNodes\GraphPage;
 
@@ -45,9 +44,9 @@ class VenueConverter
     {
         $addr = [
             $node->getStreet(),
-            trim($node->getZip()." ".$node->getCity(), ' '),
+            trim($node->getZip().' '.$node->getCity(), ' '),
             $node->getState(),
-            $node->getCountry()
+            $node->getCountry(),
         ];
 
         return implode(', ', array_filter($addr));

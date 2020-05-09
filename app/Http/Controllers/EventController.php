@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use Illuminate\Http\Request;
 use Spatie\SchemaOrg\Schema;
 
 class EventController extends Controller

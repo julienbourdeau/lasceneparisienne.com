@@ -12,14 +12,14 @@ class SendTestEmailCommand extends Command
 {
     protected $signature = 'dev:email:test {addresses*}';
 
-   protected $description = 'Send test email to given addresses';
+    protected $description = 'Send test email to given addresses';
 
     public function handle()
     {
-        $events =  Event::where([
+        $events = Event::where([
             ['start_time', '>=', Carbon::yesterday()],
             ['start_time', '<=', $monday = now()->next(Carbon::MONDAY)],
-            ['canceled', '!=', true]
+            ['canceled', '!=', true],
         ])->get();
 
         Mail::to($this->argument('addresses'))->send(new NextWeekProgramme($events));

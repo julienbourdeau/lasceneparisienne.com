@@ -2,7 +2,6 @@
 
 namespace App\Converters;
 
-use App\Event;
 use Facebook\GraphNodes\GraphEvent;
 
 class EventConverter
@@ -36,9 +35,9 @@ class EventConverter
     private function getMeta(GraphEvent $node): array
     {
         return [
-                'rsvp' => [
-                "maybe" => $node->getMaybeCount(),
-                "noreply" => $node->getNoreplyCount(),
+            'rsvp' => [
+                'maybe' => $node->getMaybeCount(),
+                'noreply' => $node->getNoreplyCount(),
                 'declined' => $node->getDeclinedCount(),
                 'attending' => $node->getAttendingCount(),
                 'invited' => $node->getInvitedCount(),
@@ -51,10 +50,12 @@ class EventConverter
     {
         return rtrim(
             str_slug(
-                $node->getName())
+                $node->getName()
+            )
             .'-'
-            .str_slug(optional($node->getPlace())->getName())
-            , '-');
+            .str_slug(optional($node->getPlace())->getName()),
+            '-'
+        );
     }
 
     private function getStatusAttributes(GraphEvent $node)

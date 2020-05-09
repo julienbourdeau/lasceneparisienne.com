@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Event;
-use Illuminate\Http\Request;
 
 class ArchiveController extends Controller
 {
@@ -40,23 +39,9 @@ class ArchiveController extends Controller
         ]);
     }
 
-    private function getMonthList()
-    {
-        $max = carbon(Event::max('start_time'));
-
-        return collect(range(2019, $max->year))
-            ->mapWithKeys(function ($year) {
-                $monthList = $this->getMonthOfYear()->map(function ($name) use ($year) {
-                    return $name.' '.$year;
-                });
-
-                return [$year => $monthList];
-            });
-    }
-
     public function periodToDate($period)
     {
-        list($mois, $year) = explode('-', $period);
+        [$mois, $year] = explode('-', $period);
         $month = [
             'janvier' => 'January',
             'fevrier' => 'February',
@@ -73,5 +58,19 @@ class ArchiveController extends Controller
         ][$mois];
 
         return carbon($month.' '.$year);
+    }
+
+    private function getMonthList()
+    {
+        $max = carbon(Event::max('start_time'));
+
+        return collect(range(2019, $max->year))
+            ->mapWithKeys(function ($year) {
+                $monthList = $this->getMonthOfYear()->map(function ($name) use ($year) {
+                    return $name.' '.$year;
+                });
+
+                return [$year => $monthList];
+            });
     }
 }

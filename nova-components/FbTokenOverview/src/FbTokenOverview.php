@@ -2,7 +2,6 @@
 
 namespace Lsp\FbTokenOverview;
 
-use Facebook\Facebook;
 use Illuminate\Support\Facades\File;
 use Laravel\Nova\Card;
 

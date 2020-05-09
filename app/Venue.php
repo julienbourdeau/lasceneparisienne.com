@@ -13,7 +13,8 @@ use Spatie\SchemaOrg\Schema;
 
 class Venue extends Model
 {
-    use SoftDeletes,
+    use SoftDeletes;
+    use
         Searchable;
 
     protected static $unguarded = true;
@@ -33,17 +34,8 @@ class Venue extends Model
     ];
 
     protected $appends = [
-        'canonical_url'
+        'canonical_url',
     ];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->uuid = Uuid::getFactory()->uuid4();
-        });
-    }
 
     public function events()
     {
@@ -74,24 +66,25 @@ class Venue extends Model
             ->url($canonical)
             ->name($this->name)
             ->address($this->address_formatted)
-            ->geo(Schema::geoCoordinates()
-                ->latitude($this->lat)
-                ->longitude($this->lng)
+            ->geo(
+                Schema::geoCoordinates()
+                    ->latitude($this->lat)
+                    ->longitude($this->lng)
             );
     }
 
     public function toMapPoint()
     {
         return [
-            "type" => "Feature",
-            "properties" => [
-                "description" => '<strong>'.$this->name.'</strong>',
-                "icon" => "music"
+            'type' => 'Feature',
+            'properties' => [
+                'description' => '<strong>'.$this->name.'</strong>',
+                'icon' => 'music',
             ],
-            "geometry" => [
-                "type" => "Point",
-                "coordinates" => [$this->lng, $this->lat],
-            ]
+            'geometry' => [
+                'type' => 'Point',
+                'coordinates' => [$this->lng, $this->lat],
+            ],
         ];
     }
 
@@ -112,12 +105,12 @@ class Venue extends Model
         return [
             'hitsPerPage' => 4,
             'searchableAttributes' => [
-                'name', 'description', 'address_formatted', 'email', 'id_facebook', 'uuid'
+                'name', 'description', 'address_formatted', 'email', 'id_facebook', 'uuid',
             ],
             'unretrievableAttributes' => ['id_facebook'],
             'disableTypoToleranceOnAttributes' => ['id_facebook', 'uuid'],
             'ranking' => [
-                'desc(upcoming_events_count)', 'typo', 'geo', 'words', 'filters', 'proximity', 'attribute', 'exact', 'custom'
+                'desc(upcoming_events_count)', 'typo', 'geo', 'words', 'filters', 'proximity', 'attribute', 'exact', 'custom',
             ],
             'customRanking' => ['desc(total_events_count)'],
         ];
@@ -126,5 +119,14 @@ class Venue extends Model
     public function newCollection(array $models = [])
     {
         return new VenueCollection($models);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = Uuid::getFactory()->uuid4();
+        });
     }
 }

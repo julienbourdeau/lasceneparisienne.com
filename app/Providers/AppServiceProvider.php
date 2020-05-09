@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use App\Event;
 use App\Facebook\PersistentDataHandler;
 use Facebook\Facebook;
 use Illuminate\Pagination\Paginator;
@@ -20,8 +19,6 @@ class AppServiceProvider extends ServiceProvider
 {
     /**
      * Register any application services.
-     *
-     * @return void
      */
     public function register()
     {
@@ -46,14 +43,12 @@ class AppServiceProvider extends ServiceProvider
 
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
         View::share('title', config('app.title'));
         View::share('description', 'Du black metal au punk hardcore, en passant par le heavy ou le death, tous les concerts de metal et punk à Paris sont sur La Scene Parisienne.');
-        View::share('indexName', config('scout.prefix')."events");
+        View::share('indexName', config('scout.prefix').'events');
 
         Paginator::defaultView('pagination::default');
 

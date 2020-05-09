@@ -14,7 +14,7 @@ class ImportDatabaseCommand extends Command
     public function handle()
     {
         $file = resource_path("{$this->argument('name')}.sql");
-        $this->line("Loading $file file...");
+        $this->line("Loading {$file} file...");
 
         $content = file_get_contents($file);
         DB::unprepared($content);

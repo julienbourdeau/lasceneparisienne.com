@@ -2,23 +2,21 @@
 
 namespace App\Mail;
 
-use App\Event;
-use Carbon\Carbon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
 class NextWeekProgramme extends Mailable
 {
-    use Queueable, SerializesModels;
+    use Queueable;
+    use SerializesModels;
 
     public $events;
 
     /**
      * Create a new message instance.
      *
-     * @return void
+     * @param mixed $events
      */
     public function __construct($events)
     {

@@ -7,22 +7,21 @@ use Illuminate\Support\Facades\Session;
 
 class PersistentDataHandler implements PersistentDataInterface
 {
-
     /**
-     * @var string Prefix to use for session variables.
+     * @var string prefix to use for session variables
      */
     protected $sessionPrefix = 'HXCWRLD_';
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function get($key)
     {
-        return Session::get($this->sessionPrefix . $key);
+        return Session::get($this->sessionPrefix.$key);
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function set($key, $value)
     {
@@ -30,7 +29,7 @@ class PersistentDataHandler implements PersistentDataInterface
             $value = json_encode($value);
         }
 
-        Session::put($this->sessionPrefix . $key, $value);
+        Session::put($this->sessionPrefix.$key, $value);
 
         return $this;
     }

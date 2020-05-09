@@ -26,7 +26,7 @@ trait HasCoverImageAttribute
     {
         $path = parse_url($this->cover)['path'];
 
-        if (! Storage::exists($path)) {
+        if (!Storage::exists($path)) {
             return true;
         }
 
@@ -36,6 +36,7 @@ trait HasCoverImageAttribute
     protected function getCoverPath()
     {
         $ext = File::extension(parse_url($this->meta['cover'])['path']);
-        return "covers/{$this->start_time->year}/{$this->slug}.$ext";
+
+        return "covers/{$this->start_time->year}/{$this->slug}.{$ext}";
     }
 }

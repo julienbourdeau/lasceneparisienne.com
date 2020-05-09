@@ -25,6 +25,7 @@ class MoveImagesToS3Command extends Command
 
             if (starts_with($event->cover, 'https://')) {
                 $this->line('Already uploaded: '.$event->name);
+
                 continue;
             }
 

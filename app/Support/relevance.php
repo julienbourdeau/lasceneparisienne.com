@@ -14,16 +14,17 @@
 |
 */
 
-
-function score($positive, $negative) {
-    if (($positive + $negative) == 0) {
-        $positive++;
+function score($positive, $negative)
+{
+    if (0 == ($positive + $negative)) {
+        ++$positive;
     }
 
-    return ((($positive + 1.9208) / ($positive + $negative) - 1.96 * sqrt((($positive * $negative) / ($positive + $negative)) + 0.9604) / ($positive + $negative)) / (1 + 3.8416 / ($positive + $negative)));
+    return (($positive + 1.9208) / ($positive + $negative) - 1.96 * sqrt((($positive * $negative) / ($positive + $negative)) + 0.9604) / ($positive + $negative)) / (1 + 3.8416 / ($positive + $negative));
 }
 
-function fiveStarRating($one, $two, $three, $four, $five) {
+function fiveStarRating($one, $two, $three, $four, $five)
+{
     $positive = $two * 0.25 + $three * 0.5 + $four * 0.75 + $five;
     $negative = $one + $two * 0.75 + $three * 0.5 + $four * 0.25;
 
@@ -45,7 +46,7 @@ function attendanceScore($declined, $noReply, $maybe, $attending)
 
 function eventPopularity($declined, $noReply, $maybe, $attending)
 {
-    if( $declined == 0 && $noReply == 0 && $maybe == 0 && $attending == 0) {
+    if (0 == $declined && 0 == $noReply && 0 == $maybe && 0 == $attending) {
         return 0;
     }
 

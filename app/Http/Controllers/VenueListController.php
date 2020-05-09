@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Venue;
-use Illuminate\Http\Request;
 
 class VenueListController extends Controller
 {

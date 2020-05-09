@@ -36,7 +36,7 @@ function adminLink(Model $model, $action = '')
 {
     $resource = Str::plural(Str::kebab(class_basename(get_class($model))));
 
-    return "/admin/resources/$resource/{$model->id}/$action";
+    return "/admin/resources/{$resource}/{$model->id}/{$action}";
 }
 
 function adminView(Model $model)

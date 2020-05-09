@@ -46,7 +46,8 @@ class EventListController extends Controller
         $monthList = $this->getMonthOfYear();
 
         return $periods->map(function ($period) use ($monthList) {
-            list($year, $monthNumber) = explode('-', $period);
+            [$year, $monthNumber] = explode('-', $period);
+
             return $monthList[$monthNumber - 1].' '.$year;
         })->mapWithKeys(function ($periodName) {
             return [$periodName => route('archives', str_slug($periodName))];

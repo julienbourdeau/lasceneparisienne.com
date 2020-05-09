@@ -2,17 +2,15 @@
 
 namespace Lsp\FacebookImportStatus;
 
-use Laravel\Nova\Nova;
-use Laravel\Nova\Events\ServingNova;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Laravel\Nova\Events\ServingNova;
+use Laravel\Nova\Nova;
 
 class CardServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -27,9 +25,15 @@ class CardServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register any application services.
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
      * Register the card's routes.
-     *
-     * @return void
      */
     protected function routes()
     {
@@ -38,17 +42,7 @@ class CardServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova'])
-                ->prefix('nova-vendor/facebook-import-status')
-                ->group(__DIR__.'/../routes/api.php');
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
+            ->prefix('nova-vendor/facebook-import-status')
+            ->group(__DIR__.'/../routes/api.php');
     }
 }

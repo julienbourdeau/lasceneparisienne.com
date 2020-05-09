@@ -11,8 +11,6 @@ class CardServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -27,9 +25,15 @@ class CardServiceProvider extends ServiceProvider
     }
 
     /**
+     * Register any application services.
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
      * Register the card's routes.
-     *
-     * @return void
      */
     protected function routes()
     {
@@ -38,17 +42,7 @@ class CardServiceProvider extends ServiceProvider
         }
 
         Route::middleware(['nova'])
-                ->prefix('nova-vendor/event-overview')
-                ->group(__DIR__.'/../routes/api.php');
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
+            ->prefix('nova-vendor/event-overview')
+            ->group(__DIR__.'/../routes/api.php');
     }
 }

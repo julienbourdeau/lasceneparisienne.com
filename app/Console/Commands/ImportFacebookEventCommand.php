@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\Converters\EventConverter;
 use App\Event;
-use App\Facebook\Events;
 use App\Facebook\VenueConverter;
 use App\Support\Facades\Fb;
 use App\Venue;
@@ -13,7 +12,6 @@ use Facebook\GraphNodes\GraphEvent;
 use Illuminate\Console\Command;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\File;
 
 class ImportFacebookEventCommand extends Command
 {
@@ -28,7 +26,7 @@ class ImportFacebookEventCommand extends Command
         $this->pulled_at = now();
 
         if ($ids = $this->option('id')) {
-            foreach($ids as $id) {
+            foreach ($ids as $id) {
                 $event = Event::find($id);
                 $node = Fb::get($event->id_facebook);
                 $this->update($node, true);
@@ -36,7 +34,7 @@ class ImportFacebookEventCommand extends Command
             }
         }
 
-        Fb::eachUpcoming(function(GraphEvent $node) {
+        Fb::eachUpcoming(function (GraphEvent $node) {
             $this->update($node);
         });
 
@@ -45,6 +43,7 @@ class ImportFacebookEventCommand extends Command
             if ($event->last_pull_at > $lastPulledLimit) {
                 return;
             }
+
             try {
                 $node = Fb::get($event->id_facebook);
                 $this->update($node);
@@ -78,14 +77,15 @@ class ImportFacebookEventCommand extends Command
 
             $this->info("[{$event->start_time->toDateString()}] Adding {$event->name}...");
         } else {
-            if (! $event->startDateIs($eventAttr['start_time'])) {
+            if (!$event->startDateIs($eventAttr['start_time'])) {
                 $forceCoverUpdate = true;
                 $this->warn("Event #{$event->id} has a new date: {$event->start_time->toDateString()}");
             }
 
             unset($eventAttr['slug']);
             $event->forceFill(array_merge(
-                $eventAttr, [
+                $eventAttr,
+                [
                     'venue_id' => $venue->id,
                     'last_pulled_at' => $this->pulled_at,
                 ]

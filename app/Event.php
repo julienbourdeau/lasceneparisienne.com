@@ -17,8 +17,10 @@ use Spatie\SchemaOrg\Schema;
 
 class Event extends Model implements Feedable
 {
-    use SoftDeletes,
-        HasCoverImageAttribute,
+    use SoftDeletes;
+    use
+        HasCoverImageAttribute;
+    use
         Searchable;
 
     protected static $unguarded = true;
@@ -36,21 +38,12 @@ class Event extends Model implements Feedable
     ];
 
     protected $hidden = [
-        'id', 'venue_id', 'deleted_at', 'meta', 'source'
+        'id', 'venue_id', 'deleted_at', 'meta', 'source',
     ];
 
     protected $appends = ['canonical_url'];
 
     protected $with = ['venue'];
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->uuid = Uuid::getFactory()->uuid4();
-        });
-    }
 
     public function venue()
     {
@@ -95,10 +88,10 @@ class Event extends Model implements Feedable
     {
         $rsvp = $this->meta['rsvp'] ?? [];
         extract($rsvp + [
-            "maybe" => 0,
-            "noreply" => 0,
-            "declined" => 0,
-            "attending" => 0,
+            'maybe' => 0,
+            'noreply' => 0,
+            'declined' => 0,
+            'attending' => 0,
         ]);
 
         return eventPopularity($declined, $noreply, $maybe, $attending);
@@ -130,7 +123,7 @@ class Event extends Model implements Feedable
 
     public function toSearchableArray()
     {
-        $array =  $this->toArray();
+        $array = $this->toArray();
 
         if ($this->isPast()) {
             $array['in_days'] = $this->start_time->diffInDays();
@@ -166,12 +159,12 @@ class Event extends Model implements Feedable
         return [
             'hitsPerPage' => 6,
             'searchableAttributes' => [
-                'name', 'description', 'venue.name', 'venue.address_formatted', 'id_facebook', 'uuid'
+                'name', 'description', 'venue.name', 'venue.address_formatted', 'id_facebook', 'uuid',
             ],
             'unretrievableAttributes' => ['id_facebook', 'popularity'],
             'disableTypoToleranceOnAttributes' => ['id_facebook', 'uuid'],
             'ranking' => [
-                'asc(in_days)', 'typo', 'geo', 'words', 'filters', 'proximity', 'attribute', 'exact', 'custom'
+                'asc(in_days)', 'typo', 'geo', 'words', 'filters', 'proximity', 'attribute', 'exact', 'custom',
             ],
             'customRanking' => ['desc(popularity)'],
         ];
@@ -224,5 +217,14 @@ class Event extends Model implements Feedable
     public function newCollection(array $models = [])
     {
         return new EventCollection($models);
+    }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            $model->uuid = Uuid::getFactory()->uuid4();
+        });
     }
 }

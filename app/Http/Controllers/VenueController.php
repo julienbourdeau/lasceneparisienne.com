@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Venue;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 
 class VenueController extends Controller
 {

@@ -16,7 +16,7 @@ class IcalController extends Controller
     public function event($uuid)
     {
         $events = Event::where('uuid', $uuid)->get();
-        $filename = str_slug($events->first()->name) . '.ics';
+        $filename = str_slug($events->first()->name).'.ics';
 
         return response($events->toIcalCalendar()->render())
             ->header('Content-Type', 'text/calendar; charset=utf-8')

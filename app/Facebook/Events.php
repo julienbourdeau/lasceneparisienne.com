@@ -6,7 +6,6 @@ use Facebook\Facebook;
 use Facebook\GraphNodes\GraphEvent;
 use Facebook\GraphNodes\GraphUser;
 use Illuminate\Support\Facades\Cache;
-use Illuminate\Support\Facades\File;
 
 class Events
 {

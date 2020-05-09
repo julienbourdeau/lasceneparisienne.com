@@ -2,13 +2,9 @@
 
 namespace App\Providers;
 
-use App\Nova\Metrics\EventsPerDays;
 use App\Nova\Metrics\EventsPerMonth;
-use App\Nova\Metrics\NewEvents;
-use App\Nova\Metrics\CountEvents;
-use App\Nova\Metrics\TotalEvents;
-use Laravel\Nova\Nova;
 use Illuminate\Support\Facades\Gate;
+use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Lsp\EventOverview\EventOverview;
 use Lsp\FacebookImportStatus\FacebookImportStatus;
@@ -18,8 +14,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
 {
     /**
      * Bootstrap any application services.
-     *
-     * @return void
      */
     public function boot()
     {
@@ -27,24 +21,40 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     }
 
     /**
-     * Register the Nova routes.
+     * Get the tools that should be listed in the Nova sidebar.
      *
-     * @return void
+     * @return array
+     */
+    public function tools()
+    {
+        return [
+            new \Spatie\BackupTool\BackupTool(),
+        ];
+    }
+
+    /**
+     * Register any application services.
+     */
+    public function register()
+    {
+        //
+    }
+
+    /**
+     * Register the Nova routes.
      */
     protected function routes()
     {
         Nova::routes()
-                ->withAuthenticationRoutes()
-                ->withPasswordResetRoutes()
-                ->register();
+            ->withAuthenticationRoutes()
+            ->withPasswordResetRoutes()
+            ->register();
     }
 
     /**
      * Register the Nova gate.
      *
      * This gate determines who can access Nova in non-local environments.
-     *
-     * @return void
      */
     protected function gate()
     {
@@ -76,27 +86,5 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     protected function dashboards()
     {
         return [];
-    }
-
-    /**
-     * Get the tools that should be listed in the Nova sidebar.
-     *
-     * @return array
-     */
-    public function tools()
-    {
-        return [
-            new \Spatie\BackupTool\BackupTool(),
-        ];
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        //
     }
 }
