@@ -25,6 +25,7 @@
                     Contact
                 </a>
             </div>
+
             <div id="search" class="mt-4 md:mt-6 lg:m-0 lg:relative">
                 <search-container index-name="{{ $indexName }}" app-id="{{ config('scout.algolia.id') }}" api-key="{{ config('scout.algolia.search_key') }}"></search-container>
             </div>

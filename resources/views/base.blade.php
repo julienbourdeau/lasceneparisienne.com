@@ -8,8 +8,15 @@
 
     @include('_partials/seo')
 
-    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-    <script async src="{{ mix('js/app.js') }}"></script>
+
+    @env('local')
+        <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+        <script src="{{ mix('js/app.js') }}"></script
+    @else
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <script src="{{ asset('js/app.js') }}"></script>
+    @endif
+
     @yield('script')
 
 </head>
@@ -26,6 +33,7 @@
     @include('_partials.footer')
 
     @include('_partials.analytics')
+
     @yield('script-footer')
 
 </body>

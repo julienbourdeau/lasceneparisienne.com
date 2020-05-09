@@ -1,21 +1,6 @@
 @extends('base')
 
-@section('script')
-    <script src='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.js'></script>
-    <link href='https://api.mapbox.com/mapbox-gl-js/v1.4.1/mapbox-gl.css' rel='stylesheet' />
-@endsection
-
 @section('script-footer')
-    <script>
-      mapboxgl.accessToken = 'pk.eyJ1IjoianVsaWVuYm91cmRlYXUiLCJhIjoiY2szMnlxa2E2MGFwazNpbXE0YTB5enpkNyJ9.B1h5q4L-OZRtrcv0vutGqA';
-
-      var map = new mapboxgl.Map({
-        container: 'map',
-        style: 'mapbox://styles/mapbox/light-v10',
-        zoom: 12,
-        center: [{{ $venue->lng }}, {{ $venue->lat }}]
-      });
-    </script>
 
     @include('venues._map_script', ['venues' => new \App\Collection\VenueCollection([$venue])])
 
@@ -35,8 +20,8 @@
             </ul>
         </div>
         <div class="md:w-1/2">
-            <div id='map' class="w-full h-48 md:h-64"></div>
-            <p class="text-gray-400"><span class="font-semibold">GPS:</span> {{ $venue->lat }}, {{ $venue->lng }}</p>
+            <div id="map" class="w-full h-48 md:h-64"></div>
+            <p class="text-gray-500"><span class="font-semibold">GPS:</span> {{ $venue->lat }}, {{ $venue->lng }}</p>
         </div>
     </div>
 
@@ -45,11 +30,13 @@
         <div class="lg:w-1/3">
             <h2 class="text-2xl font-thin mb-2">Prochains concerts</h2>
             <div class="md:flex lg:flex-none lg:block">
-                @foreach($upcomingEvents->slice(0, $upcomingEvents->count() > 5 ? 2 : 1)->all() as $event)
+                @forelse ($upcomingEvents->slice(0, $upcomingEvents->count() > 5 ? 2 : 1)->all() as $event)
                     <div class="my-6 md:w-1/2 lg:w-full">
                         @include('events._event-list-item-with-cover')
                     </div>
-                @endforeach
+                @empty
+                    <p>Aucun concert à venir.</p>
+                @endforelse
             </div>
         </div>
 
@@ -57,7 +44,7 @@
             <h2 class="text-2xl font-thin">Concerts à venir ({{ count($upcomingEvents) }})</h2>
 
             <ol class="mt-2 mb-12">
-            @foreach($upcomingEvents as $event)
+            @forelse($upcomingEvents as $event)
                 <li class="flex my-6">
                     <div>
                         <div class="bg-gray-100 rounded-lg border p-2 text-center w-20 md:w-32 mr-2 md:mr-4">
@@ -71,7 +58,9 @@
                         </h4>
                     </div>
                 </li>
-            @endforeach
+            @empty
+                <p>Aucun concert à venir.</p>
+            @endforelse
             </ol>
         </div>
     </div>

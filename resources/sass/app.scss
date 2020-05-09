@@ -9,6 +9,7 @@
 body {
     @apply font-sans font-light;
     //background-image: url("/images/bg-dots.png");
+    //background-color: #fdfefe;
     -webkit-text-size-adjust: 100%;
 }
 
@@ -42,6 +43,10 @@ body {
             @apply px-3 mx-2;
         }
     }
+}
+
+.mapboxgl-ctrl-attrib-inner {
+  display: none;
 }
 
 /* purgecss end ignore */
