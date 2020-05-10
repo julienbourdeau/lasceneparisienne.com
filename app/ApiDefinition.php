@@ -44,7 +44,7 @@ namespace App;
             return [
                 'id' => str_after(__METHOD__, '::'),
                 'endpoint' => '/api/venues',
-                'response' => Venue::paginate(2),
+                'response' => Venue::withCount(['upcomingEvents'])->paginate(2),
             ];
         }
 
@@ -53,7 +53,9 @@ namespace App;
             return [
                 'id' => str_after(__METHOD__, '::'),
                 'endpoint' => '/api/venue/{uuid}',
-                'response' => Venue::first(),
+                'response' => Venue::with(['nextEvents'])
+                    ->withCount(['upcomingEvents', 'events'])
+                    ->first(),
             ];
         }
     }

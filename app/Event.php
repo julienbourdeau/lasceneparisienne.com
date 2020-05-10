@@ -18,10 +18,8 @@ use Spatie\SchemaOrg\Schema;
 class Event extends Model implements Feedable
 {
     use SoftDeletes;
-    use
-        HasCoverImageAttribute;
-    use
-        Searchable;
+    use HasCoverImageAttribute;
+    use Searchable;
 
     protected static $unguarded = true;
 
