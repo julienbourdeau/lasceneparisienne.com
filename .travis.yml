@@ -13,4 +13,4 @@ before_script:
   - travis_retry composer update --no-interaction --no-suggest --prefer-source
 
 script:
-  - vendor/bin/phpunit
+  - vendor/bin/phpunit -v
