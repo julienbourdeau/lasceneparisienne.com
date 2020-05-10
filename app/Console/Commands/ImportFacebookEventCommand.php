@@ -5,8 +5,10 @@ namespace App\Console\Commands;
 use App\Converters\EventConverter;
 use App\Event;
 use App\Facebook\VenueConverter;
+use App\Support\Facades\AdminNotification;
 use App\Support\Facades\Fb;
 use App\Venue;
+use Facebook\Exceptions\FacebookAuthenticationException;
 use Facebook\Exceptions\FacebookResponseException;
 use Facebook\GraphNodes\GraphEvent;
 use Illuminate\Console\Command;
@@ -21,8 +23,22 @@ class ImportFacebookEventCommand extends Command
 
     private Carbon $pulled_at;
 
+    private $created = 0;
+    private $updated = 0;
+
     public function handle()
     {
+        try {
+            Fb::me();
+        } catch(FacebookResponseException $e) {
+            if(get_class($e->getPrevious()) == FacebookAuthenticationException::class) {
+                AdminNotification::send("🚨💥 FACEBOOK TOKEN EXPIRED 💥🚨");
+            } else {
+                AdminNotification::send("🚨 Something went wrong with Facebook API");
+            }
+            exit(123);
+        }
+
         $this->pulled_at = now();
 
         if ($ids = $this->option('id')) {
@@ -51,6 +67,8 @@ class ImportFacebookEventCommand extends Command
                 $this->error("[Event #{$event->id}] {$e->getMessage()}");
             }
         });
+
+        AdminNotification::send("📚 {$this->created} events were added and {$this->updated} were updated!");
     }
 
     public function update(GraphEvent $node, $forceCoverUpdate = false)
@@ -75,6 +93,7 @@ class ImportFacebookEventCommand extends Command
         if (is_null($event)) {
             $event = new Event($eventAttr);
 
+            $this->created++;
             $this->info("[{$event->start_time->toDateString()}] Adding {$event->name}...");
         } else {
             if (!$event->startDateIs($eventAttr['start_time'])) {
@@ -91,6 +110,7 @@ class ImportFacebookEventCommand extends Command
                 ]
             ));
 
+            $this->updated++;
             $this->line("[{$event->start_time->toDateString()}] Updating {$event->name} (#{$event->id})...");
         }
 

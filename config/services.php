@@ -14,6 +14,11 @@ return [
     |
     */
 
+    'telegram' => [
+        'id' => env('TELEGRAM_CHAT_ID'),
+        'secret' => env('TELEGRAM_TOKEN'),
+    ],
+
     'facebook' => [
         'id' => env('FACEBOOK_APP_ID', 'yolo'),
         'secret' => env('FACEBOOK_APP_SECRET', 'yolo'),
