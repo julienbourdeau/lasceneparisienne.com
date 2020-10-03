@@ -11,7 +11,7 @@
 
     @env('local')
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
-        <script src="{{ mix('js/app.js') }}"></script
+        <script src="{{ mix('js/app.js') }}"></script>
     @else
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
         <script src="{{ asset('js/app.js') }}"></script>
