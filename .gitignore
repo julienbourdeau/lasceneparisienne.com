@@ -20,8 +20,5 @@ storage/token.txt
 .env.production
 .env.staging
 
-public/css/app.css
-public/js/app.js
-public/mix-manifest.json
-
 database/*.csv
+database/*.sql
