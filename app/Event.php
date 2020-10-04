@@ -124,9 +124,9 @@ class Event extends Model implements Feedable
         $array = $this->toArray();
 
         if ($this->isPast()) {
-            $array['in_days'] = $this->start_time->diffInDays();
-        } else {
             $array['in_days'] = 1000 + $this->start_time->diffInDays();
+        } else {
+            $array['in_days'] = $this->start_time->diffInDays();
         }
         $array['popularity'] = $this->popularity;
         $array['start_date'] = $this->start_time->toFormattedDateString();

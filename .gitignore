@@ -23,3 +23,5 @@ storage/token.txt
 public/css/app.css
 public/js/app.js
 public/mix-manifest.json
+
+database/*.csv

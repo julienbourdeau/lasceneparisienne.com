@@ -63,9 +63,9 @@ class Event extends Resource
                 Boolean::make('soldout')->hideFromIndex(),
                 Textarea::make('Description'),
                 Text::make('Cover')->hideFromIndex(),
-                Image::make('Cover', function ($m) {
-                    return '/covers'.$m->cover;
-                }),
+                Text::make('Cover2', function ($m) {
+                    return '<img src="'.$m->cover.'">';
+                })->asHtml(),
             ]),
 
             new Panel('Technical', [
