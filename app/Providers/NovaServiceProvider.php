@@ -73,7 +73,6 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
         return [
             (new FacebookImportStatus())->lastRun(),
             (new EventOverview())->overview(),
-            (new FbTokenOverview())->overview(),
             (new EventsPerMonth())->width('full'),
         ];
     }
