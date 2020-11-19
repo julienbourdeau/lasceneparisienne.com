@@ -8,7 +8,6 @@ use Laravel\Nova\Nova;
 use Laravel\Nova\NovaApplicationServiceProvider;
 use Lsp\EventOverview\EventOverview;
 use Lsp\FacebookImportStatus\FacebookImportStatus;
-use Lsp\FbTokenOverview\FbTokenOverview;
 
 class NovaServiceProvider extends NovaApplicationServiceProvider
 {
