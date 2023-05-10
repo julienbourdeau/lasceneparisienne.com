@@ -1,3 +1,3 @@
 @env('production')
-    <script src="https://catfish.lasceneparisienne.com/script.js" data-site="EEOIXMNI" defer></script>
+    <script src="https://cdn.usefathom.com/script.js" data-site="EEOIXMNI" defer></script>
 @endif
